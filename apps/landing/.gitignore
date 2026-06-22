@@ -3,6 +3,9 @@
 /out/
 next-env.d.ts
 
+# Generated from the repo's canonical Markdown by scripts/collect-docs.mjs
+/content
+
 # deps / vercel
 /node_modules
 .vercel
