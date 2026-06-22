@@ -108,3 +108,23 @@ post-publish step.
 
 See [`PUBLISHING.md`](./PUBLISHING.md) for the order, the `npm pack` pre-flight,
 and the (manual) publish commands.
+
+## Quality benchmark
+
+Scored with `softeneers-tools` (deterministic-checker, composed into
+project-benchmark). Latest summary lives in [`../PROJECT-BENCHMARK.md`](../PROJECT-BENCHMARK.md).
+
+| Metric (project-benchmark) | Baseline (Sprint 3) | Final                  |
+| -------------------------- | ------------------- | ---------------------- |
+| Maturity                   | 4.4 / 10 (L1)       | 6.1 / 10 (L3 Rigorous) |
+| docs                       | 3.1                 | 8                      |
+| code                       | 4.5                 | 7.3                    |
+| rigor                      | 3                   | 8                      |
+| governance                 | 5.5                 | 8                      |
+| ai-optimization            | 8.8                 | 9.2                    |
+
+deterministic-checker: **AI-opt 9.2 · Determinism 7.7 · Composite 8.5 / 10**,
+zero P0/P1 findings. The lagging dimensions are softeneers-ecosystem conventions
+satisfied differently on purpose: **human** uses a generated docs site
+(`apps/docs/dist`) rather than committed `.html` companions; **tooling** uses
+standard npm/Turbo scripts + CI rather than `.claude/skills` shells.

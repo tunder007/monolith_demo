@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "softeneers-framework-docs",
+  "description": "Machine-readable index of the Softeneers Framework documentation. .md files are the AI-optimized source of truth.",
+  "readingOrder": [
+    "ARCHITECTURE.md",
+    "ROADMAP.md",
+    "CLI-SPEC.md",
+    "PACKAGES.md",
+    "DECISIONS.md",
+    "PUBLISHING.md"
+  ],
+  "documents": [
+    {
+      "path": "ARCHITECTURE.md",
+      "title": "Architecture",
+      "summary": "Monorepo layout, package-vs-template distinction, data flow, conventions."
+    },
+    {
+      "path": "ROADMAP.md",
+      "title": "Roadmap",
+      "summary": "Sprints, MVP, and current status — the source of truth for what is done."
+    },
+    {
+      "path": "CLI-SPEC.md",
+      "title": "CLI Specification",
+      "summary": "create-softeneers-app contract: prompts, flags, copy/transform algorithm."
+    },
+    {
+      "path": "PACKAGES.md",
+      "title": "Packages",
+      "summary": "Contract for each @softeneers/* package."
+    },
+    {
+      "path": "DECISIONS.md",
+      "title": "Authoritative Decisions",
+      "summary": "Tiebreaker decisions; wins when other docs conflict."
+    },
+    {
+      "path": "PUBLISHING.md",
+      "title": "Publishing",
+      "summary": "Publish order, npm pack pre-flight, and the manual publish commands."
+    },
+    {
+      "path": "README.md",
+      "title": "Docs Index",
+      "summary": "Reading order and pointers; entry point for this folder."
+    }
+  ],
+  "related": {
+    "root": ["../README.md", "../CONTRIBUTING.md", "../TODO.md", "../CLAUDE.md"],
+    "generatedSite": "../apps/docs/dist/index.html"
+  }
+}
