@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>monolith_demo — Benchmark</title>
+    <style>
+      :root {
+        --bg: #0b0f14;
+        --panel: #121821;
+        --line: #243140;
+        --ink: #e6edf3;
+        --muted: #9fb0c0;
+        --faint: #6f8298;
+        --blue: #58a6ff;
+        --violet: #a371f7;
+        --green: #3fb950;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #0b0f14, #0d131b);
+        color: var(--ink);
+        font:
+          15px/1.6 -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Arial,
+          sans-serif;
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 40px 22px 70px;
+      }
+      h1 {
+        font-size: 27px;
+        margin: 0 0 4px;
+      }
+      h2 {
+        font-size: 19px;
+        margin: 38px 0 12px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 7px;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 13.5px;
+      }
+      code {
+        background: #0e141c;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 1px 5px;
+        font:
+          12.5px ui-monospace,
+          Menlo,
+          monospace;
+        color: #cdd9e5;
+      }
+      .gauges {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin: 22px 0;
+      }
+      .gauge {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 18px;
+        text-align: center;
+      }
+      .gauge .lab {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+      .gauge .num {
+        font-size: 42px;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+      .gauge .num small {
+        font-size: 16px;
+        color: var(--faint);
+      }
+      .num.good {
+        color: #56d364;
+      }
+      .num.mid {
+        color: #e3b341;
+      }
+      .num.bad {
+        color: #ff7b72;
+      }
+      .num.na {
+        color: var(--faint);
+      }
+      .bar {
+        height: 7px;
+        border-radius: 6px;
+        background: #0e141c;
+        border: 1px solid var(--line);
+        margin-top: 12px;
+        overflow: hidden;
+      }
+      .bar > span {
+        display: block;
+        height: 100%;
+      }
+      .b-ai > span {
+        background: linear-gradient(90deg, #1f6feb, #58a6ff);
+      }
+      .b-det > span {
+        background: linear-gradient(90deg, #6e40c9, #a371f7);
+      }
+      .b-comp > span {
+        background: linear-gradient(90deg, #238636, #3fb950);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 14px 0;
+        font-size: 13.5px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 8px 11px;
+        border-bottom: 1px solid var(--line);
+      }
+      th {
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+      td.c,
+      th.c {
+        text-align: center;
+      }
+      .score {
+        display: inline-block;
+        min-width: 30px;
+        padding: 2px 8px;
+        border-radius: 7px;
+        font-weight: 700;
+        font-size: 13px;
+      }
+      .score.good {
+        background: rgba(46, 160, 67, 0.16);
+        color: #56d364;
+      }
+      .score.mid {
+        background: rgba(187, 128, 9, 0.16);
+        color: #e3b341;
+      }
+      .score.bad {
+        background: rgba(207, 56, 63, 0.16);
+        color: #ff7b72;
+      }
+      .score.na {
+        color: var(--faint);
+      }
+      .finding {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-left-width: 4px;
+        border-radius: 11px;
+        padding: 13px 15px;
+        margin: 11px 0;
+      }
+      .finding.p0 {
+        border-left-color: #f85149;
+      }
+      .finding.p1 {
+        border-left-color: #d29922;
+      }
+      .finding.p2 {
+        border-left-color: #58a6ff;
+      }
+      .finding.p3 {
+        border-left-color: #6f8298;
+      }
+      .finding h4 {
+        margin: 0 0 5px;
+        font-size: 14.5px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .axis {
+        font-size: 11px;
+        color: var(--faint);
+      }
+      .sev {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 6px;
+      }
+      .sev.p0 {
+        background: rgba(248, 81, 73, 0.16);
+        color: #ff7b72;
+      }
+      .sev.p1 {
+        background: rgba(210, 153, 34, 0.16);
+        color: #e3b341;
+      }
+      .sev.p2 {
+        background: rgba(88, 166, 255, 0.14);
+        color: #79c0ff;
+      }
+      .sev.p3 {
+        background: rgba(139, 148, 158, 0.14);
+        color: #b1bac4;
+      }
+      .ev {
+        font:
+          12px ui-monospace,
+          Menlo,
+          monospace;
+        color: var(--muted);
+        margin: 3px 0;
+      }
+      .fix {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+      .foot {
+        color: var(--faint);
+        font-size: 12.5px;
+        border-top: 1px solid var(--line);
+        margin-top: 36px;
+        padding-top: 14px;
+      }
+      @media (max-width: 740px) {
+        .gauges {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>monolith_demo — Benchmark</h1>
+      <div class="sub">
+        AI-optimization &amp; determinism · generated by the Deterministic Checker ·
+        2026-06-22T13:30:07.418Z
+      </div>
+      <div class="gauges">
+        <div class="gauge">
+          <div class="lab">AI-optimization</div>
+          <div class="num good">9.1<small>/10</small></div>
+          <div class="bar b-ai"><span style="width: 91%"></span></div>
+        </div>
+        <div class="gauge">
+          <div class="lab">Determinism</div>
+          <div class="num mid">7.6<small>/10</small></div>
+          <div class="bar b-det"><span style="width: 76%"></span></div>
+        </div>
+        <div class="gauge">
+          <div class="lab">Composite</div>
+          <div class="num good">8.4<small>/10</small></div>
+          <div class="bar b-comp"><span style="width: 84%"></span></div>
+        </div>
+      </div>
+      <h2>Sub-scores</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Axis</th>
+            <th>Sub-score</th>
+            <th class="c">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AI-opt</td>
+            <td>entry</td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td>AI-opt</td>
+            <td>index</td>
+            <td class="c"><span class="score mid">6.9</span></td>
+          </tr>
+          <tr>
+            <td>AI-opt</td>
+            <td>links</td>
+            <td class="c"><span class="score good">9</span></td>
+          </tr>
+          <tr>
+            <td>AI-opt</td>
+            <td>cleanliness</td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td>Determinism</td>
+            <td>code</td>
+            <td class="c"><span class="score bad">5</span></td>
+          </tr>
+          <tr>
+            <td>Determinism</td>
+            <td>schema</td>
+            <td class="c"><span class="score na">n/a</span></td>
+          </tr>
+          <tr>
+            <td>Determinism</td>
+            <td>drift</td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td>Determinism</td>
+            <td>bodyLinks</td>
+            <td class="c"><span class="score good">9</span></td>
+          </tr>
+          <tr>
+            <td>Determinism</td>
+            <td>entry</td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Per-layer breakdown</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th class="c">Files</th>
+            <th class="c">Broken links</th>
+            <th class="c">AI-opt</th>
+            <th class="c">Det</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>.claude</code></td>
+            <td class="c">1</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">9.1</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td><code>.cursor</code></td>
+            <td class="c">1</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">9.1</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td><code>.github</code></td>
+            <td class="c">1</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">9.1</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td><code>.workspace-optimizer</code></td>
+            <td class="c">1</td>
+            <td class="c">2</td>
+            <td class="c"><span class="score bad">0</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td><code>apps</code></td>
+            <td class="c">50</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">10</span></td>
+            <td class="c"><span class="score bad">5</span></td>
+          </tr>
+          <tr>
+            <td><code>docs</code></td>
+            <td class="c">6</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">10</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td><code>packages</code></td>
+            <td class="c">10</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">10</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td><code>templates</code></td>
+            <td class="c">38</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">10</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+          <tr>
+            <td><code>tests</code></td>
+            <td class="c">1</td>
+            <td class="c">0</td>
+            <td class="c"><span class="score good">9.1</span></td>
+            <td class="c"><span class="score good">10</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Findings (4)</h2>
+      <div class="finding p2">
+        <h4>
+          <span class="sev p2">P2</span> P2-1 — 1 manifest record(s) point to missing files
+          <span class="axis">ai</span>
+        </h4>
+        <div class="ev">apps/MANIFEST.json</div>
+        <div class="fix"><b>Fix:</b> Remove or correct dead records.</div>
+      </div>
+      <div class="finding p2">
+        <h4>
+          <span class="sev p2">P2</span> P2-2 — Manifest count is stale (declared 48, actual 50)
+          <span class="axis">ai</span>
+        </h4>
+        <div class="ev">apps/MANIFEST.json</div>
+        <div class="fix"><b>Fix:</b> Regenerate the manifest from the current tree.</div>
+      </div>
+      <div class="finding p2">
+        <h4>
+          <span class="sev p2">P2</span> P2-3 — 2/20 links broken (10%)
+          <span class="axis">ai · det</span>
+        </h4>
+        <div class="ev">.workspace-optimizer/backup/2026-06-22T12-48-54-006Z/CLAUDE.md (2)</div>
+        <div class="fix"><b>Fix:</b> Run a link-rewrite pass; add a CI link check.</div>
+      </div>
+      <div class="finding p3">
+        <h4>
+          <span class="sev p3">P3</span> P3-1 — 4 Date.now()/new Date() in non-seeder source
+          <span class="axis">det</span>
+        </h4>
+        <div class="ev">review whether any feed computation/output</div>
+        <div class="fix"><b>Fix:</b> Keep time out of pure logic; inject it where needed.</div>
+      </div>
+      <h2>Metrics</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td>date_hits</td>
+            <td class="c">4</td>
+          </tr>
+          <tr>
+            <td>drift_candidates</td>
+            <td class="c">0</td>
+          </tr>
+          <tr>
+            <td>duplicates</td>
+            <td class="c">0</td>
+          </tr>
+          <tr>
+            <td>entry_broken_paths</td>
+            <td class="c">0</td>
+          </tr>
+          <tr>
+            <td>files</td>
+            <td class="c">123</td>
+          </tr>
+          <tr>
+            <td>findings_P0</td>
+            <td class="c">0</td>
+          </tr>
+          <tr>
+            <td>findings_P1</td>
+            <td class="c">0</td>
+          </tr>
+          <tr>
+            <td>findings_P2</td>
+            <td class="c">3</td>
+          </tr>
+          <tr>
+            <td>findings_P3</td>
+            <td class="c">1</td>
+          </tr>
+          <tr>
+            <td>findings_total</td>
+            <td class="c">4</td>
+          </tr>
+          <tr>
+            <td>links_broken</td>
+            <td class="c">2</td>
+          </tr>
+          <tr>
+            <td>links_total</td>
+            <td class="c">20</td>
+          </tr>
+          <tr>
+            <td>llm_calls</td>
+            <td class="c">0</td>
+          </tr>
+          <tr>
+            <td>manifest_dangling</td>
+            <td class="c">0</td>
+          </tr>
+          <tr>
+            <td>math_random_hits</td>
+            <td class="c">0</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="foot">
+        Source of truth: <code>benchmark.json</code> payload. This HTML and the
+        <code>BENCHMARK.md</code> are both generated from it, so they never drift.
+      </div>
+    </div>
+  </body>
+</html>

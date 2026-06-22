@@ -28,13 +28,15 @@ Fail-fast environment validation; an app must not boot with a bad `.env`.
 - **Deps**: `zod`.
 - **Usage**: `const env = createEnv({ schema: { PORT: z.coerce.number() } })`.
 
-## `@softeneers/db` — Sprint 4
+## `@softeneers/db` — ✅ Sprint 4 (built)
 
-Database connection + ORM client + migration/seed helpers.
+Configured Sequelize (MySQL) factory + connection helpers.
 
-- **Exports**: `db` (configured client), model base, migration runner.
-- **Deps**: `sequelize` + `mysql2` for v1 (Drizzle/Prisma variants later).
-- **Ships with**: `docker-compose` MySQL recipe, seed scripts.
+- **Exports**: `createDb(config)` → `Sequelize` (no connect); `assertConnection(db)`;
+  re-exports `Sequelize`, `Model`, `DataTypes` (+ types).
+- **Deps**: `sequelize` + `mysql2` (Drizzle/Prisma variants later).
+- **Pairs with**: the template's `docker-compose.yml` MySQL recipe; `sequelize-cli`
+  migrations/seeds in the consuming app.
 
 ## `@softeneers/auth` — Sprint 5
 
