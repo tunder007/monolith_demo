@@ -5,5 +5,4 @@
 # and placeholder files must not be hoisted or linked into this workspace.
 packages:
   - "apps/cli"
-  - "apps/docs"
   - "packages/*"

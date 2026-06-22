@@ -25,7 +25,6 @@ npx create-softeneers-app@latest my-app
 ```
 apps/
   cli/          create-softeneers-app — the generator (working)
-  docs/         static docs site, generated from the Markdown (npm run build)
   landing/      Next.js marketing site → https://softeneers-landing.vercel.app
 packages/
   config/       @softeneers/config — shared tsconfig/eslint/prettier

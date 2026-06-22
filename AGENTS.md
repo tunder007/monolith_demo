@@ -29,12 +29,12 @@ node apps/cli/dist/index.js my-app --yes   # run the generator from source
 ## Layout
 
 - `apps/cli` — `create-softeneers-app`. Source in `src/`: `args.ts`, `templates.ts`,
-  `scaffold.ts`, `prompts.ts`, `index.ts`. Bundles `templates/` on build.
-- `apps/docs` — zero-dep generator for the committed human-readable `.html`
-  companions beside each canonical `.md` (+ root `index.html`); run via `npm run build`.
-- `apps/landing` — Next.js marketing/landing page, **standalone** (not a workspace
-  member), deployed to Vercel at <https://softeneers-landing.vercel.app>. Has its
-  own deps/lockfile and `vercel.json` (`framework: nextjs`).
+  `fragments.ts` (toggle engine), `scaffold.ts`, `prompts.ts`, `index.ts`. Bundles
+  `templates/` on build.
+- `apps/landing` — Next.js site that is **the human-readable docs + marketing
+  view**, generated from the canonical Markdown (`scripts/collect-docs.mjs`).
+  **Standalone** (not a workspace member), deployed to Vercel at
+  <https://softeneers-landing.vercel.app>; own deps/lockfile + `vercel.json`.
 - `packages/{config,env,db,auth,email,storage,payments}` — the `@softeneers/*` libraries.
 - `templates/next-fullstack` — the project the CLI copies (Next.js `web` + Express/
   Sequelize/MySQL `server`). Payload, **not** a workspace member.
@@ -56,8 +56,8 @@ node apps/cli/dist/index.js my-app --yes   # run the generator from source
 - Every `@softeneers/*` package has `src/`, builds to `dist/`, ships a `node:test`
   suite, and has a deep reference page under `docs/layer-2-reference/`.
 - Never commit a real `.env` (only `.env.example`).
-- **Docs are dual-format** (D-07): edit the `.md` source, then `npm run build` to
-  regenerate its committed `.html` companion. Never hand-edit a `.html` doc.
+- **Markdown is the single source of truth for docs** (D-07). Edit the `.md`; the
+  human view (the landing site) regenerates from it. No committed `.html` copies.
 
 ## Verifying a change
 
