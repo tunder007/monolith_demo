@@ -56,12 +56,13 @@ Transactional email.
 - **Deps**: `resend`, `@react-email/components`, `@react-email/render`, `react`.
 - **Extend**: add more React Email templates (invoice, order confirmation).
 
-## `@softeneers/storage` — Sprint 7
+## `@softeneers/storage` — ✅ Sprint 7 (built)
 
-S3-compatible object storage (AWS S3, Cloudflare R2, MinIO, RustFS).
+S3-compatible object storage (AWS S3, Cloudflare R2, MinIO).
 
-- **Exports**: `uploadFile(...)`, `getSignedUrl(...)`, client factory.
-- **Deps**: `@aws-sdk/client-s3`.
+- **Exports**: `createStorage(config)`, `uploadFile`, `getSignedDownloadUrl`,
+  `deleteFile`; re-exports `S3Client` + command classes.
+- **Deps**: `@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`.
 
 ## `@softeneers/logger` — later
 
