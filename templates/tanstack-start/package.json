@@ -19,7 +19,11 @@
   "dependencies": {
     "@softeneers/auth": "^0.1.0",
     "@softeneers/db": "^0.1.0",
+    "@softeneers/email": "^0.1.0",
     "@softeneers/env": "^0.1.0",
+    "@softeneers/payments": "^0.1.0",
+    "@softeneers/storage": "^0.1.0",
+    "better-auth": "^1.6.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",

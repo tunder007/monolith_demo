@@ -72,7 +72,7 @@ function resolveHref(href) {
   const path = pathPart.split("?")[0];
 
   const pkg = path.match(
-    /(?:^|\/)(?:layer-2-reference\/(config|env|db|auth|email|storage)\.md|(config|env|db|auth|email|storage)\/README\.md)$/,
+    /(?:^|\/)(?:layer-2-reference\/(config|env|db|auth|email|storage|payments)\.md|(config|env|db|auth|email|storage|payments)\/README\.md)$/,
   );
   if (pkg) return `/docs/pkg-${pkg[1] ?? pkg[2]}${hash}`;
 
@@ -119,6 +119,7 @@ const PAGES = [
   ["Packages", "pkg-auth", "@softeneers/auth", "docs/layer-2-reference/auth.md"],
   ["Packages", "pkg-email", "@softeneers/email", "docs/layer-2-reference/email.md"],
   ["Packages", "pkg-storage", "@softeneers/storage", "docs/layer-2-reference/storage.md"],
+  ["Packages", "pkg-payments", "@softeneers/payments", "docs/layer-2-reference/payments.md"],
 ];
 
 rmSync(OUT, { recursive: true, force: true });

@@ -7,6 +7,16 @@ import { env } from "./env.js";
 // #if auth
 import { auth } from "./auth/auth.js";
 // #endif
+// #if email
+import { email } from "./email/routes.js";
+// #endif
+// #if storage
+import { files } from "./storage/routes.js";
+// #endif
+// #if payments
+import { payments } from "./payments/routes.js";
+import { stripeWebhook } from "./payments/webhook.js";
+// #endif
 
 const app = new Hono();
 
@@ -19,6 +29,16 @@ app.route("/api/cars", cars);
 // #if auth
 // better-auth speaks the Fetch API, so hand it the raw Request and return its Response.
 app.on(["GET", "POST"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+// #endif
+// #if email
+app.route("/api/email", email);
+// #endif
+// #if storage
+app.route("/api/files", files);
+// #endif
+// #if payments
+app.post("/api/webhooks/stripe", stripeWebhook);
+app.route("/api/payments", payments);
 // #endif
 
 serve({ fetch: app.fetch, port: env.PORT }, (info) => {

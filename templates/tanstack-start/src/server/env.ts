@@ -18,5 +18,23 @@ export const env = createEnv({
     AUTH_SECRET: z.string().min(16).default('dev-secret-change-me-to-a-long-random-string'),
     AUTH_BASE_URL: z.string().default('http://localhost:3000'),
     // #endif
+    // #if email
+    RESEND_API_KEY: z.string().default('re_set_me_in_dotenv'),
+    EMAIL_FROM: z.string().default('onboarding@resend.dev'),
+    // #endif
+    // #if storage
+    S3_ACCESS_KEY_ID: z.string().default(''),
+    S3_SECRET_ACCESS_KEY: z.string().default(''),
+    S3_BUCKET: z.string().default('uploads'),
+    S3_REGION: z.string().default('auto'),
+    S3_ENDPOINT: z.string().default(''),
+    // #endif
+    // #if payments
+    APP_URL: z.string().default('http://localhost:3000'),
+    STRIPE_SECRET_KEY: z.string().default('sk_test_set_me_in_dotenv'),
+    STRIPE_WEBHOOK_SECRET: z.string().default('whsec_set_me_in_dotenv'),
+    STRIPE_PRICE_ID: z.string().default('price_set_me_in_dotenv'),
+    STRIPE_SUBSCRIPTION_PRICE_ID: z.string().default('price_set_me_in_dotenv'),
+    // #endif
   },
 })

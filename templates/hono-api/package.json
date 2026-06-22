@@ -21,7 +21,10 @@
     "@hono/node-server": "^1.13.0",
     "@softeneers/auth": "^0.1.0",
     "@softeneers/db": "^0.1.0",
+    "@softeneers/email": "^0.1.0",
     "@softeneers/env": "^0.1.0",
+    "@softeneers/payments": "^0.1.0",
+    "@softeneers/storage": "^0.1.0",
     "dotenv": "^16.4.5",
     "hono": "^4.6.0",
     "mysql2": "^3.11.0"

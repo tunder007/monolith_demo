@@ -32,7 +32,7 @@ function resolveHref(href: string): string {
   const path = pathPart.split("?")[0];
 
   const pkg = path.match(
-    /(?:^|\/)(?:layer-2-reference\/(config|env|db|auth|email|storage)\.md|(config|env|db|auth|email|storage)\/README\.md)$/,
+    /(?:^|\/)(?:layer-2-reference\/(config|env|db|auth|email|storage|payments)\.md|(config|env|db|auth|email|storage|payments)\/README\.md)$/,
   );
   if (pkg) return `/docs/pkg-${pkg[1] ?? pkg[2]}${hash}`;
 

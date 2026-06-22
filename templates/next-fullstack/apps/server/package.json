@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "nodemon index.ts",
         "build": "tsc",
+        "typecheck": "tsc --noEmit",
         "start": "node dist/index.js",
         "db:migrate": "sequelize-cli db:migrate --config config/config.cjs",
         "db:seed": "sequelize-cli db:seed:all --config config/config.cjs",

@@ -40,11 +40,14 @@ database, Docker, or extra steps required for the default (in-memory) setup.
 Each toggle defaults **off**, so the default project is a lean, zero-setup demo.
 Turn one on to add that capability:
 
-| Toggle     | Off (default)                          | On (`--db` / `--auth` / `--docker`)                          |
-| ---------- | -------------------------------------- | ----------------------------------------------------------- |
-| `db`       | pre-seeded in-memory store             | MySQL via [`@softeneers/db`](./layer-2-reference/db.md), **falls back to in-memory if MySQL is unreachable** |
-| `auth`     | no auth                                | email+password via [`@softeneers/auth`](./layer-2-reference/auth.md) at `/api/auth/*` |
-| `docker`   | no Docker files                        | `docker-compose.yml` with a MySQL service                   |
+| Toggle       | On adds…                                                                  |
+| ------------ | ------------------------------------------------------------------------- |
+| `--db`       | MySQL via [`@softeneers/db`](./layer-2-reference/db.md) — **falls back to in-memory if unreachable** |
+| `--auth`     | email+password via [`@softeneers/auth`](./layer-2-reference/auth.md) at `/api/auth/*` (+ sign-in/up UI in `tanstack-start`) |
+| `--docker`   | `docker-compose.yml` with a MySQL service                                 |
+| `--email`    | transactional email via [`@softeneers/email`](./layer-2-reference/email.md) (`POST /api/email/welcome`) |
+| `--storage`  | S3/R2/MinIO uploads via [`@softeneers/storage`](./layer-2-reference/storage.md) (`/api/files/*`) |
+| `--payments` | Stripe checkout + subscriptions + portal + webhook via [`@softeneers/payments`](./layer-2-reference/payments.md) (+ `/billing` UI) — just paste your keys |
 
 > **Every combination runs with one `npm run dev`.** With `--db` and no database
 > running, the app starts on the pre-seeded in-memory store and tells you how to
@@ -72,9 +75,13 @@ npx create-softeneers-app@latest . -t express-api --pm pnpm --yes
 npx create-softeneers-app@latest lib -t minimal --yes
 ```
 
-Flags: `-t/--template`, `--yes/-y`, `--db`/`--no-db`, `--auth`/`--no-auth`,
-`--docker`/`--no-docker`, `--no-install`, `--no-git`, `--pm <npm|pnpm|yarn>`.
-Full contract: [CLI-SPEC.md](./CLI-SPEC.md).
+Flags: `-t/--template`, `--yes/-y`, `--db`, `--auth`, `--docker`, `--email`,
+`--storage`, `--payments` (each with a `--no-*` form), `--no-install`,
+`--no-git`, `--pm <npm|pnpm|yarn>`. Full contract: [CLI-SPEC.md](./CLI-SPEC.md).
+
+Every toggle combination is build-and-typecheck verified, and the full apps are
+runtime-tested — see
+[Layer 1 → Verified combinations](./layer-1-packages.md#verified-combinations).
 
 ## Trying the demo
 

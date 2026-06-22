@@ -6,7 +6,7 @@
 import { basename, join } from "node:path";
 import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 
-export const TOGGLE_KEYS = ["db", "auth", "docker"] as const;
+export const TOGGLE_KEYS = ["db", "auth", "docker", "email", "storage", "payments"] as const;
 export type ToggleKey = (typeof TOGGLE_KEYS)[number];
 export type Toggles = Record<ToggleKey, boolean>;
 
