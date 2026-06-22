@@ -1,0 +1,27 @@
+{
+  "name": "@softeneers/auth",
+  "version": "0.1.0",
+  "description": "Authentication for Softeneers projects: a configured better-auth instance plus Express/Node helpers.",
+  "type": "module",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "better-auth": "^1.6.0"
+  }
+}

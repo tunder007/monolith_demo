@@ -38,13 +38,14 @@ Configured Sequelize (MySQL) factory + connection helpers.
 - **Pairs with**: the template's `docker-compose.yml` MySQL recipe; `sequelize-cli`
   migrations/seeds in the consuming app.
 
-## `@softeneers/auth` — Sprint 5
+## `@softeneers/auth` — ✅ Sprint 5 (built)
 
 Authentication built on **better-auth**.
 
-- **Exports**: `auth` (server instance), session helpers, Express middleware,
-  frontend hooks, shared types.
-- **Ships with**: login/register template wiring.
+- **Exports**: `createAuth(options)` (email+password by default), `getSession`,
+  `toNodeHandler`, `fromNodeHeaders`, `BetterAuthError`, `Auth`/`AuthOptions`.
+- **Deps**: `better-auth`.
+- **Deferred**: login/register UI wiring in the template (post-publish).
 
 ## `@softeneers/email` — Sprint 6
 
