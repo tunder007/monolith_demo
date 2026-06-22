@@ -5,16 +5,17 @@ The generator binary. This document is the contract for the implementation under
 transform → git init → install → next steps). It ships **five templates**, each
 targeting a different kind of user, with composable `db`/`auth`/`docker` toggles:
 
-| Template         | For                         | Toggles            |
-| ---------------- | --------------------------- | ------------------ |
-| `next-fullstack` | a full web + API monorepo   | (all-in)           |
-| `express-api`    | a TypeScript REST API       | db · auth · docker |
-| `hono-api`       | a fast, modern API          | db · auth · docker |
-| `tanstack-start` | a fullstack React app       | db · auth · docker |
-| `minimal`        | a zero-framework TS starter | (none)             |
+| Template         | For                         | Toggles                                       |
+| ---------------- | --------------------------- | --------------------------------------------- |
+| `next-fullstack` | a full web + API monorepo   | (all-in)                                      |
+| `express-api`    | a TypeScript REST API       | db · auth · docker · email · storage · payments |
+| `hono-api`       | a fast, modern API          | db · auth · docker · email · storage · payments |
+| `tanstack-start` | a fullstack React app (+ auth/billing UI) | db · auth · docker · email · storage · payments |
+| `minimal`        | a zero-framework TS starter | (none)                                        |
 
 Each template is build-verified: a generated project installs and builds across
-its toggle combinations.
+its toggle combinations (every combination — see
+[Layer 1 → Verified combinations](./layer-1-packages.md#verified-combinations)).
 
 ## Invocation
 

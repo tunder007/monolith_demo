@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "name": "softeneers-framework-docs",
-  "description": "Machine-readable index of the Softeneers Framework documentation, organized in three layers. .md files are the AI-optimized source of truth; .html companions are the generated human view.",
+  "description": "Machine-readable index of the Softeneers Framework documentation, organized in three layers. Markdown is the single AI-optimized source of truth; the human-readable view is the deployed landing site (softeneers-landing.vercel.app), generated from these files.",
   "layers": [
     {
       "layer": 0,
@@ -74,6 +74,6 @@
   ],
   "related": {
     "root": ["../README.md", "../CONTRIBUTING.md", "../CLAUDE.md"],
-    "humanView": "../index.html"
+    "humanView": "https://softeneers-landing.vercel.app"
   }
 }

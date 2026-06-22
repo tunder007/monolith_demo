@@ -1,5 +1,11 @@
 # Softeneers Framework — Getting Started Plan
 
+> **Historical document.** This is the original, pre-implementation plan, kept for
+> provenance — several decisions cite its sections (e.g. `DECISIONS.md` D-01
+> overrides §8). It is **not** the current state of the project. For what the
+> framework is and how it works today, start at [`docs/`](./docs/README.md)
+> (the three layers) and [`docs/ROADMAP.md`](./docs/ROADMAP.md).
+
 ## 1. The Idea in Brief
 
 Softeneers Framework should not be a full framework built from scratch, like Next.js. The better approach is a **modular starter framework** built on top of already-established technologies.

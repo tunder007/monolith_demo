@@ -15,16 +15,16 @@ This document describes how the monorepo that produces that command is laid out.
 ```
 softeneers-framework/
   apps/
-    cli/          create-softeneers-app — the generator binary
-    docs/         documentation site (future)
-  packages/
-    config/       @softeneers/config — shared tsconfig/eslint/prettier
-    env/          @softeneers/env — env validation
-    (db, auth, email, storage, logger, api, ui — added per ROADMAP)
-  templates/
-    next-fullstack/   the project the CLI copies; a mini-monorepo itself
+    cli/          create-softeneers-app — the generator binary (workspace member)
+    landing/      Next.js docs + marketing site; THE human-readable docs view,
+                  generated from the Markdown. Standalone (NOT a workspace member).
+  packages/       the published @softeneers/* libraries (workspace members):
+    config/ env/ db/ auth/ email/ storage/ payments/
+  templates/      copied verbatim by the CLI (NOT workspace members):
+    next-fullstack/ express-api/ hono-api/ tanstack-start/ minimal/
+  docs/                 the documentation (Markdown source of truth, three layers)
   package.json          root, private, workspace orchestrator
-  pnpm-workspace.yaml   workspace members (apps/*, packages/* — NOT templates/*)
+  pnpm-workspace.yaml   workspace members (apps/cli, packages/* — NOT templates/, NOT apps/landing)
   turbo.json            task pipeline
 ```
 
@@ -41,7 +41,7 @@ There is one distinction that drives every decision in this repo:
 | Kind         | Lives in      | Workspace member? | Role                                                   |
 | ------------ | ------------- | ----------------- | ------------------------------------------------------ |
 | **Package**  | `packages/*`  | yes               | Published `@softeneers/*` libraries, consumed by apps  |
-| **App**      | `apps/*`      | yes               | Things we run/build here (the CLI, the docs site)      |
+| **App**      | `apps/*`      | `cli` yes, `landing` no | Things we run/build here: the CLI, and the landing docs site (standalone) |
 | **Template** | `templates/*` | **no**            | Source copied _verbatim_ into a generated user project |
 
 Templates are deliberately excluded from the workspace globs (both the npm
@@ -62,7 +62,6 @@ templates/next-fullstack/
   apps/
     web/      Next.js 16 + React 19 + Tailwind v4   (the browser app)
     server/   Express 5 + Sequelize 6 + mysql2      (the JSON API)
-  packages/   (config, env — wired in a later sprint)
   docker-compose.yml   MySQL 8 for local dev
   package.json (npm workspaces) / pnpm-workspace.yaml / turbo.json
   .env.example

@@ -10,7 +10,6 @@
   },
   "workspaces": [
     "apps/cli",
-    "apps/docs",
     "packages/*"
   ],
   "scripts": {

@@ -29,15 +29,21 @@ after the MVP is additive.
 | 5      | `@softeneers/auth` (better-auth) + login/register template     | ✅ done  |
 | 6      | `@softeneers/email` (Resend + React Email)                     | ✅ done  |
 | 7      | `@softeneers/storage` (S3-compatible) + upload helper          | ✅ done  |
-| 8      | Docs site + examples + `npm publish`                           | ✅ done² |
+| 8      | Docs (landing site) + examples + `npm publish`                 | ✅ done² |
 | 9      | Multi-template generator: 5 templates + db/auth/docker toggles  | ✅ done³ |
+| 10     | Batteries: `email` + `storage` + `payments` toggles + auth UI   | ✅ done⁴ |
 
 ¹ The template is relocated and standalone. Converting it to _consume_ the
 published `@softeneers/*` packages happens post-publish.
 
-² Docs site (`apps/docs`, committed HTML companions generated from the Markdown)
-and publishing are done: `create-softeneers-app` and the six `@softeneers/*`
-packages are live on npm (0.1.0). See [`PUBLISHING.md`](./PUBLISHING.md).
+² Publishing is done: `create-softeneers-app` (0.2.4) and the seven `@softeneers/*`
+packages are live on npm. The human-readable docs are the deployed landing site,
+generated from the canonical Markdown (D-07). See [`PUBLISHING.md`](./PUBLISHING.md).
+
+⁴ `@softeneers/payments` (Stripe) added; `email`/`storage`/`payments` wired as
+composable toggles into express/hono/tanstack, and `tanstack-start` gained
+sign-in/up + billing UI. Every toggle combination is build-and-typecheck verified
+(see [Layer 1 → Verified combinations](./layer-1-packages.md#verified-combinations)).
 
 ³ The generator now ships five templates — `next-fullstack`, `express-api`,
 `hono-api`, `tanstack-start`, `minimal` — so different users pick the stack that
@@ -120,19 +126,10 @@ and the (manual) publish commands.
 ## Quality benchmark
 
 Scored with `softeneers-tools` (deterministic-checker, composed into
-project-benchmark). Latest summary lives in [`../PROJECT-BENCHMARK.md`](../PROJECT-BENCHMARK.md).
+project-benchmark). The latest summary is regenerated into
+[`../PROJECT-BENCHMARK.md`](../PROJECT-BENCHMARK.md). Maturity is **L3 (Rigorous)**
+with **AI-optimization 10/10** and zero P0/P1 findings.
 
-| Metric (project-benchmark) | Baseline (Sprint 3) | Final                  |
-| -------------------------- | ------------------- | ---------------------- |
-| Maturity                   | 4.4 / 10 (L1)       | 6.1 / 10 (L3 Rigorous) |
-| docs                       | 3.1                 | 8                      |
-| code                       | 4.5                 | 7.3                    |
-| rigor                      | 3                   | 8                      |
-| governance                 | 5.5                 | 8                      |
-| ai-optimization            | 8.8                 | 9.2                    |
-
-deterministic-checker: **AI-opt 9.2 · Determinism 7.7 · Composite 8.5 / 10**,
-zero P0/P1 findings. The lagging dimensions are softeneers-ecosystem conventions
-satisfied differently on purpose: **human** uses a generated docs site
-(`apps/docs/dist`) rather than committed `.html` companions; **tooling** uses
-standard npm/Turbo scripts + CI rather than `.claude/skills` shells.
+The `human` dimension is satisfied **off-repo on purpose** (D-07): the human-
+readable view is the deployed landing site rather than committed `.html`
+companions, so the repo stays single-sourced Markdown.
