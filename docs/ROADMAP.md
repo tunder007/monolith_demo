@@ -27,8 +27,8 @@ after the MVP is additive.
 | 3      | `@softeneers/config` + `@softeneers/env` + lint/format         | ✅ done    |
 | 4      | `@softeneers/db` + Docker MySQL + migrations + seed            | ✅ done    |
 | 5      | `@softeneers/auth` (better-auth) + login/register template     | ✅ done    |
-| 6      | `@softeneers/email` (Resend + React Email)                     | ⏳ next    |
-| 7      | `@softeneers/storage` (S3-compatible) + upload helper          | ⬜ pending |
+| 6      | `@softeneers/email` (Resend + React Email)                     | ✅ done    |
+| 7      | `@softeneers/storage` (S3-compatible) + upload helper          | ⏳ next    |
 | 8      | Docs site + examples + `npm publish`                           | ⬜ pending |
 
 ¹ The template is relocated and standalone. Converting it into a pnpm/turbo

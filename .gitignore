@@ -28,6 +28,12 @@ pnpm-lock.yaml
 # CLI build artifact: templates are bundled into the package at build time
 /apps/cli/templates
 
+# Benchmark machine outputs (regenerated; PROJECT-BENCHMARK.md is the kept summary)
+benchmark.html
+benchmark.json
+project-benchmark.html
+project-benchmark.json
+
 # Logs
 *.log
 npm-debug.log*

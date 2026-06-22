@@ -47,13 +47,14 @@ Authentication built on **better-auth**.
 - **Deps**: `better-auth`.
 - **Deferred**: login/register UI wiring in the template (post-publish).
 
-## `@softeneers/email` — Sprint 6
+## `@softeneers/email` — ✅ Sprint 6 (built)
 
 Transactional email.
 
-- **Exports**: `sendEmail(...)`, React Email templates (welcome, reset password,
-  invoice, order confirmation).
-- **Deps**: `resend`, `react-email`.
+- **Exports**: `createEmailClient(apiKey)`, `sendEmail(client, opts)`, templates
+  `WelcomeEmail` / `ResetPasswordEmail`, plus `render` and `Resend`.
+- **Deps**: `resend`, `@react-email/components`, `@react-email/render`, `react`.
+- **Extend**: add more React Email templates (invoice, order confirmation).
 
 ## `@softeneers/storage` — Sprint 7
 
