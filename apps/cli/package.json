@@ -1,0 +1,33 @@
+{
+  "name": "create-softeneers-app",
+  "version": "0.0.0",
+  "description": "Scaffold a new Softeneers Framework project from a template.",
+  "type": "module",
+  "bin": {
+    "create-softeneers-app": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-templates.mjs",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist templates",
+    "prepublishOnly": "pnpm run clean && pnpm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "softeneers",
+    "scaffold",
+    "generator",
+    "create-app"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.7.0"
+  }
+}

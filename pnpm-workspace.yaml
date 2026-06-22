@@ -1,0 +1,8 @@
+# Workspace members of the Softeneers Framework monorepo.
+#
+# NOTE: templates/* are intentionally NOT workspace members. They are copied
+# verbatim by create-softeneers-app into a new project, so their dependencies
+# and placeholder files must not be hoisted or linked into this workspace.
+packages:
+  - "apps/*"
+  - "packages/*"

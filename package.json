@@ -1,0 +1,35 @@
+{
+  "name": "softeneers-framework",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Softeneers Framework — a modular fullstack project generator (create-softeneers-app) plus reusable @softeneers/* packages.",
+  "type": "module",
+  "packageManager": "npm@11.5.2",
+  "engines": {
+    "node": ">=18"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "typecheck": "turbo run typecheck",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/node": "^20.0.0",
+    "eslint": "^9.13.0",
+    "globals": "^15.0.0",
+    "prettier": "^3.3.0",
+    "tsx": "^4.19.0",
+    "turbo": "^2.1.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.10.0"
+  }
+}

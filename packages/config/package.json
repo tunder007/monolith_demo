@@ -1,0 +1,25 @@
+{
+  "name": "@softeneers/config",
+  "version": "0.1.0",
+  "description": "Shared configuration for Softeneers projects: TypeScript, ESLint, Prettier presets.",
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "tsconfig",
+    "eslint",
+    "prettier"
+  ],
+  "exports": {
+    "./tsconfig/base.json": "./tsconfig/base.json",
+    "./eslint": "./eslint/index.js",
+    "./prettier": "./prettier/index.js"
+  },
+  "peerDependencies": {
+    "@eslint/js": ">=9",
+    "eslint": ">=9",
+    "globals": ">=15",
+    "prettier": ">=3",
+    "typescript": ">=5",
+    "typescript-eslint": ">=8"
+  }
+}
