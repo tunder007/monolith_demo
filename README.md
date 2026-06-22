@@ -10,6 +10,8 @@ npx create-softeneers-app@latest my-app
 
 …that scaffolds an organized, scalable, standardized project from a template.
 
+**🌐 Live site:** <https://softeneers-landing.vercel.app>
+
 > **Status:** all sprints complete. The monorepo, the `next-fullstack` template,
 > the CLI, and all six `@softeneers/*` packages (config, env, db, auth, email,
 > storage) are built, tested, and publish-ready (the actual `npm publish` is
@@ -23,6 +25,7 @@ npx create-softeneers-app@latest my-app
 apps/
   cli/          create-softeneers-app — the generator (working)
   docs/         static docs site, generated from the Markdown (npm run build)
+  landing/      Next.js marketing site → https://softeneers-landing.vercel.app
 packages/
   config/       @softeneers/config — shared tsconfig/eslint/prettier
   env/          @softeneers/env — env validation (Zod)

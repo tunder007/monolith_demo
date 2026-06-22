@@ -27,7 +27,9 @@ node apps/cli/dist/index.js my-app --yes   # run the generator from source
 - `apps/cli` — `create-softeneers-app`. Source in `src/`: `args.ts`, `templates.ts`,
   `scaffold.ts`, `prompts.ts`, `index.ts`. Bundles `templates/` on build.
 - `apps/docs` — zero-dep static docs site generated from the Markdown (`npm run build`).
-- `apps/landing` — Next.js marketing/landing page (deployed to Vercel).
+- `apps/landing` — Next.js marketing/landing page, **standalone** (not a workspace
+  member), deployed to Vercel at <https://softeneers-landing.vercel.app>. Has its
+  own deps/lockfile and `vercel.json` (`framework: nextjs`).
 - `packages/{config,env,db,auth,email,storage}` — the `@softeneers/*` libraries.
 - `templates/next-fullstack` — the project the CLI copies (Next.js `web` + Express/
   Sequelize/MySQL `server`). Payload, **not** a workspace member.
