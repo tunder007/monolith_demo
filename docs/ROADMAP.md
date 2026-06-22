@@ -107,10 +107,10 @@ Implemented under `apps/cli/src/` per `CLI-SPEC.md`:
 ## Definition of done per package (Sprints 3–7)
 
 A `@softeneers/*` package is "real" when it: has source under `src/`, builds to
-`dist/`, exports the contract in `PACKAGES.md`, is not `private`, and has a
-`node:test` suite. All six (`config`, `env`, `db`, `auth`, `email`, `storage`)
-meet this. Template _consumption_ of the published packages is the remaining
-post-publish step.
+`dist/`, documents its contract in [`docs/layer-2-reference/`](./layer-2-reference/README.md),
+is not `private`, and has a `node:test` suite. All six (`config`, `env`, `db`,
+`auth`, `email`, `storage`) meet this. Templates already consume the published
+`env`/`db`/`auth` via their toggles.
 
 ## Publishing
 

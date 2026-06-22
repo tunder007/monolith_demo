@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@softeneers/config — Softeneers Framework</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font: 16px/1.6 -apple-system, system-ui, sans-serif; max-width: 820px;
+  margin: 0 auto; padding: 2rem 1.25rem 4rem; color: #1a1a1a; background: #fff; }
+@media (prefers-color-scheme: dark) { body { color: #e6e6e6; background: #141414; } }
+.bar { display: flex; flex-wrap: wrap; gap: .9rem; align-items: baseline;
+  padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #8884; font-size: .9rem; }
+.bar .spacer { flex: 1; }
+.bar a { text-decoration: none; }
+.src { color: #8889; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; }
+h1, h2, h3 { line-height: 1.25; }
+h2 { margin-top: 2rem; border-bottom: 1px solid #8883; padding-bottom: .3rem; }
+a { color: #2563eb; } @media (prefers-color-scheme: dark) { a { color: #6ea8fe; } }
+code { background: #8882; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+pre { background: #8881; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .92rem; }
+th, td { border: 1px solid #8884; padding: .4rem .6rem; text-align: left; }
+blockquote { border-left: 3px solid #8886; margin: 1rem 0; padding: .2rem 1rem; color: #8889; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-size: .85rem; color: #8889; }
+.groups { display: grid; gap: 1.5rem; }
+.group h2 { margin-top: 1.5rem; }
+.group ul { list-style: none; padding: 0; margin: .5rem 0; }
+.group li { margin: .35rem 0; }
+.group .meta { color: #8889; font-size: .85rem; }
+</style></head>
+<body>
+<div class="bar"><a href="../../index.html">← All docs</a><span class="spacer"></span><a class="src" href="./config.md">view config.md source</a></div>
+<main><h1><code>@softeneers/config</code></h1>
+<p>Shared, opinionated tooling configuration so every project — the framework, the templates, and your apps — lints, formats, and type-checks the same way. It is <strong>config only</strong>: no runtime code.</p>
+<h2>Install</h2>
+<pre><code>npm i -D @softeneers/config @eslint/js eslint globals prettier typescript typescript-eslint</code></pre>
+<p>The lint/format stack is declared as <strong>peer dependencies</strong> (you install them once at your repo root), so the package stays tiny and never pins your toolchain.</p>
+<h2>Exports</h2>
+<table><thead><tr><th>Export</th><th>What it is</th></tr></thead><tbody>
+<tr><td><code>@softeneers/config/tsconfig/base.json</code></td><td>Strict, modern TypeScript base config</td></tr>
+<tr><td><code>@softeneers/config/eslint</code></td><td>Flat ESLint config array</td></tr>
+<tr><td><code>@softeneers/config/prettier</code></td><td>Prettier options object</td></tr>
+</tbody></table>
+<h2>Usage</h2>
+<p><strong>TypeScript</strong> — extend the base in your <code>tsconfig.json</code>:</p>
+<pre><code>{
+  "extends": "@softeneers/config/tsconfig/base.json",
+  "compilerOptions": { "outDir": "dist", "rootDir": "src" },
+  "include": ["src"]
+}</code></pre>
+<p><strong>ESLint</strong> — spread the preset in your flat config (<code>eslint.config.js</code>):</p>
+<pre><code>import config from "@softeneers/config/eslint";
+
+export default [...config];</code></pre>
+<p><strong>Prettier</strong> — re-export the preset (<code>prettier.config.js</code>):</p>
+<pre><code>export { default } from "@softeneers/config/prettier";</code></pre>
+<h2>Why peer dependencies</h2>
+<p>Per <a href="../DECISIONS.html">DECISIONS.md</a> D-03, build tooling lives at the repo root as one shared copy. If <code>@softeneers/config</code> bundled <code>eslint</code>/<code>typescript</code> itself, consumers would end up with duplicate, conflicting tool versions. Declaring them as peers means the consumer owns one canonical version and the preset just configures it.</p>
+<h2>Roadmap</h2>
+<p>Planned additional presets: <code>./tailwind</code>, <code>./tsup</code>.</p></main>
+<footer>Softeneers Framework — human view generated from the canonical Markdown.
+Do not edit by hand; run <code>npm run build</code> (the <code>.md</code> is the source of truth).</footer>
+</body></html>

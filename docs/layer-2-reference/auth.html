@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@softeneers/auth — Softeneers Framework</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font: 16px/1.6 -apple-system, system-ui, sans-serif; max-width: 820px;
+  margin: 0 auto; padding: 2rem 1.25rem 4rem; color: #1a1a1a; background: #fff; }
+@media (prefers-color-scheme: dark) { body { color: #e6e6e6; background: #141414; } }
+.bar { display: flex; flex-wrap: wrap; gap: .9rem; align-items: baseline;
+  padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #8884; font-size: .9rem; }
+.bar .spacer { flex: 1; }
+.bar a { text-decoration: none; }
+.src { color: #8889; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; }
+h1, h2, h3 { line-height: 1.25; }
+h2 { margin-top: 2rem; border-bottom: 1px solid #8883; padding-bottom: .3rem; }
+a { color: #2563eb; } @media (prefers-color-scheme: dark) { a { color: #6ea8fe; } }
+code { background: #8882; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+pre { background: #8881; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .92rem; }
+th, td { border: 1px solid #8884; padding: .4rem .6rem; text-align: left; }
+blockquote { border-left: 3px solid #8886; margin: 1rem 0; padding: .2rem 1rem; color: #8889; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-size: .85rem; color: #8889; }
+.groups { display: grid; gap: 1.5rem; }
+.group h2 { margin-top: 1.5rem; }
+.group ul { list-style: none; padding: 0; margin: .5rem 0; }
+.group li { margin: .35rem 0; }
+.group .meta { color: #8889; font-size: .85rem; }
+</style></head>
+<body>
+<div class="bar"><a href="../../index.html">← All docs</a><span class="spacer"></span><a class="src" href="./auth.md">view auth.md source</a></div>
+<main><h1><code>@softeneers/auth</code></h1>
+<p>Authentication built on <a href="https://better-auth.com">better-auth</a>: a configured server instance with <strong>email+password</strong> enabled by default, plus the Node/Express integration helpers re-exported so you add a single dependency.</p>
+<h2>Install</h2>
+<pre><code>npm i @softeneers/auth</code></pre>
+<p><code>better-auth</code> comes along as a dependency (and is partially re-exported).</p>
+<h2>API</h2>
+<h3><code>createAuth(options)</code></h3>
+<pre><code>function createAuth(options: AuthOptions): Auth;</code></pre>
+<p>Returns a better-auth instance with <code>emailAndPassword: { enabled: true }</code> merged in; anything you pass overrides the defaults. Common options: <code>secret</code>, <code>baseURL</code>, and <code>database</code> (a mysql2 pool / Kysely dialect / adapter). With no <code>database</code>, better-auth uses an in-memory store — perfect for local dev.</p>
+<h3><code>getSession(auth, headers)</code></h3>
+<p>Resolve the current session from Node/Express request headers; returns the session payload or <code>null</code> when unauthenticated.</p>
+<h3>Re-exports</h3>
+<ul>
+<li><code>toNodeHandler(auth)</code> — mount better-auth in Express/Node.</li>
+<li><code>fromNodeHeaders(headers)</code> — convert Node headers to the Fetch <code>Headers</code> better-auth expects.</li>
+<li><code>BetterAuthError</code>, and the <code>Auth</code> / <code>AuthOptions</code> types.</li>
+</ul>
+<h2>Usage</h2>
+<p><strong>Express:</strong></p>
+<pre><code>import { createAuth, toNodeHandler } from "@softeneers/auth";
+
+export const auth = createAuth({ secret: env.AUTH_SECRET, baseURL: env.AUTH_BASE_URL });
+
+// Mount BEFORE express.json() — better-auth handles its own body parsing.
+app.all("/api/auth/*splat", toNodeHandler(auth)); // Express 5 wildcard syntax</code></pre>
+<p><strong>Fetch-style frameworks (Hono, TanStack Start):</strong></p>
+<pre><code>// better-auth speaks the Fetch API — hand it the raw Request, return its Response.
+app.on(["GET", "POST"], "/api/auth/*", (c) =&gt; auth.handler(c.req.raw)); // Hono</code></pre>
+<p>Once mounted, the standard better-auth endpoints work — e.g. <code>POST /api/auth/sign-up/email</code>, <code>POST /api/auth/sign-in/email</code>, <code>GET /api/auth/get-session</code>.</p>
+<h2>How the templates use it</h2>
+<p>The <code>--auth</code> toggle in <code>express-api</code> / <code>hono-api</code> / <code>tanstack-start</code> creates the instance and mounts it at <code>/api/auth/*</code>. Because better-auth falls back to an in-memory store, sign-up/in work on <code>npm run dev</code> with no database. Set a strong <code>AUTH_SECRET</code> and give better-auth a real <code>database</code> before production.</p>
+<h2>Roadmap</h2>
+<p>Ready-made sign-in / sign-up UI per template (currently you wire <code>better-auth/react</code> yourself on the client).</p></main>
+<footer>Softeneers Framework — human view generated from the canonical Markdown.
+Do not edit by hand; run <code>npm run build</code> (the <code>.md</code> is the source of truth).</footer>
+</body></html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@softeneers/db — Softeneers Framework</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font: 16px/1.6 -apple-system, system-ui, sans-serif; max-width: 820px;
+  margin: 0 auto; padding: 2rem 1.25rem 4rem; color: #1a1a1a; background: #fff; }
+@media (prefers-color-scheme: dark) { body { color: #e6e6e6; background: #141414; } }
+.bar { display: flex; flex-wrap: wrap; gap: .9rem; align-items: baseline;
+  padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid #8884; font-size: .9rem; }
+.bar .spacer { flex: 1; }
+.bar a { text-decoration: none; }
+.src { color: #8889; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem; }
+h1, h2, h3 { line-height: 1.25; }
+h2 { margin-top: 2rem; border-bottom: 1px solid #8883; padding-bottom: .3rem; }
+a { color: #2563eb; } @media (prefers-color-scheme: dark) { a { color: #6ea8fe; } }
+code { background: #8882; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+pre { background: #8881; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .92rem; }
+th, td { border: 1px solid #8884; padding: .4rem .6rem; text-align: left; }
+blockquote { border-left: 3px solid #8886; margin: 1rem 0; padding: .2rem 1rem; color: #8889; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-size: .85rem; color: #8889; }
+.groups { display: grid; gap: 1.5rem; }
+.group h2 { margin-top: 1.5rem; }
+.group ul { list-style: none; padding: 0; margin: .5rem 0; }
+.group li { margin: .35rem 0; }
+.group .meta { color: #8889; font-size: .85rem; }
+</style></head>
+<body>
+<div class="bar"><a href="../../index.html">← All docs</a><span class="spacer"></span><a class="src" href="./db.md">view db.md source</a></div>
+<main><h1><code>@softeneers/db</code></h1>
+<p>A configured <strong>Sequelize (MySQL)</strong> factory plus a connection helper. It does the boilerplate — dialect, pool, credentials — and re-exports the Sequelize toolkit so a consumer adds one dependency instead of three.</p>
+<h2>Install</h2>
+<pre><code>npm i @softeneers/db mysql2</code></pre>
+<p><code>mysql2</code> is the dialect driver Sequelize needs at runtime; install it alongside.</p>
+<h2>API</h2>
+<h3><code>createDb(config)</code></h3>
+<pre><code>function createDb(config: {
+  host: string;
+  port?: number;        // default 3306
+  database: string;
+  username: string;
+  password: string;
+  logging?: boolean;    // default false
+}): Sequelize;</code></pre>
+<p>Returns a configured <code>Sequelize</code> instance. <strong>Does not connect</strong> — the connection opens lazily on the first query (or when you call <code>assertConnection</code>).</p>
+<h3><code>assertConnection(db)</code></h3>
+<pre><code>function assertConnection(db: Sequelize): Promise&lt;void&gt;;</code></pre>
+<p>Authenticates the connection, throwing a wrapped error that names the target <code>host</code>/<code>database</code> so a misconfigured <code>.env</code> fails fast and legibly.</p>
+<h3>Re-exports</h3>
+<p><code>Sequelize</code>, <code>Model</code>, <code>DataTypes</code>, and the <code>ModelStatic</code> / <code>SequelizeOptions</code> types — define models without importing <code>sequelize</code> directly.</p>
+<h2>Usage</h2>
+<pre><code>import { assertConnection, createDb, DataTypes, Model } from "@softeneers/db";
+
+export const sequelize = createDb({
+  host: env.DB_HOST,
+  port: env.DB_PORT,
+  database: env.DB_NAME,
+  username: env.DB_USER,
+  password: env.DB_PASSWORD,
+});
+
+class Car extends Model {
+  declare id: number;
+  declare brand: string;
+}
+Car.init(
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    brand: { type: DataTypes.STRING, allowNull: false },
+  },
+  { sequelize, modelName: "Car", tableName: "cars" },
+);
+
+await assertConnection(sequelize);
+await sequelize.sync(); // create tables in dev</code></pre>
+<h2>How the templates use it</h2>
+<p>In the API/fullstack templates, the <code>--db</code> toggle wires this in behind a <code>CarStore</code> interface. On first use the store calls <code>assertConnection</code> + <code>sync()</code>, auto-seeds demo data, and — crucially — <strong>falls back to an in-memory store if the database is unreachable</strong>, so <code>npm run dev</code> always works. Start MySQL (the <code>--docker</code> toggle ships a <code>docker-compose.yml</code>) to get real persistence.</p>
+<h2>Notes &amp; roadmap</h2>
+<ul>
+<li>Pairs with <code>sequelize-cli</code> for explicit migrations/seeds in the consuming app.</li>
+<li>MySQL today; Drizzle/Prisma and Postgres variants are possible future additions.</li>
+</ul></main>
+<footer>Softeneers Framework — human view generated from the canonical Markdown.
+Do not edit by hand; run <code>npm run build</code> (the <code>.md</code> is the source of truth).</footer>
+</body></html>

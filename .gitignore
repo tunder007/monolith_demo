@@ -18,6 +18,16 @@ teste2e/
 **/out
 **/build
 
+# Template-generated files (templates ship their ignore as `gitignore`, which is
+# not an active git ignore here, so cover their generated artifacts at the root)
+**/next-env.d.ts
+**/routeTree.gen.ts
+**/.tanstack
+**/.nitro
+**/.output
+**/.vinxi
+**/.wrangler
+
 # Monorepo tooling
 .turbo
 **/.turbo

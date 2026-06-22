@@ -47,7 +47,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-
 <p><code>npm run lint</code> runs <code>eslint .</code> once at the root (flat config, ignores dist/.next/node_modules/templates). <code>build</code>, <code>dev</code>, <code>typecheck</code>, <code>test</code> run through Turbo for caching and topological order.</p>
 <h2>D-05 — <code>@softeneers/env</code> exposes <code>createEnv</code>, not a pre-built <code>env</code> (2026-06-22)</h2>
 <p>The package can't know an app's schema ahead of time, so the API is <code>createEnv({ schema })</code> (returns a frozen typed object) plus <code>EnvValidationError</code> and a re-exported <code>z</code>. The conventional name for the result is <code>env</code>.</p>
-<p><strong>Overrides</strong> earlier prose in <code>PACKAGES.md</code> that implied a ready-made <code>env</code> export.</p>
+<p><strong>Overrides</strong> earlier prose that implied a ready-made <code>env</code> export.</p>
 <h2>D-06 — Reproducible installs use <code>npm ci</code> (2026-06-22)</h2>
 <p><code>package-lock.json</code> is committed. CI and clean setups use <code>npm ci</code>. Incremental <code>npm install</code> on some Node/npm versions can leave a partially-corrupted tree; a clean install (or <code>npm ci</code>) is always sound.</p>
 <h2>D-07 — Docs are dual-format: <code>.md</code> is the source, <code>.html</code> is the human view (2026-06-22)</h2>

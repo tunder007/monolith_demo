@@ -48,7 +48,7 @@ The package can't know an app's schema ahead of time, so the API is
 `createEnv({ schema })` (returns a frozen typed object) plus `EnvValidationError`
 and a re-exported `z`. The conventional name for the result is `env`.
 
-**Overrides** earlier prose in `PACKAGES.md` that implied a ready-made `env` export.
+**Overrides** earlier prose that implied a ready-made `env` export.
 
 ## D-06 — Reproducible installs use `npm ci` (2026-06-22)
 

@@ -71,15 +71,18 @@ function resolveHref(href) {
   const hash = frag ? `#${frag}` : "";
   const path = pathPart.split("?")[0];
 
-  const pkg = path.match(/(?:^|\/)(config|env|db|auth|email|storage)\/README\.md$/);
-  if (pkg) return `/docs/pkg-${pkg[1]}${hash}`;
+  const pkg = path.match(
+    /(?:^|\/)(?:layer-2-reference\/(config|env|db|auth|email|storage)\.md|(config|env|db|auth|email|storage)\/README\.md)$/,
+  );
+  if (pkg) return `/docs/pkg-${pkg[1] ?? pkg[2]}${hash}`;
 
   const base = path.split("/").pop() ?? "";
   const map = {
+    "layer-0-quickstart.md": "/docs/quickstart",
+    "layer-1-packages.md": "/docs/packages-overview",
     "ARCHITECTURE.md": "/docs/architecture",
     "ROADMAP.md": "/docs/roadmap",
     "CLI-SPEC.md": "/docs/cli",
-    "PACKAGES.md": "/docs/packages",
     "DECISIONS.md": "/docs/decisions",
     "PUBLISHING.md": "/docs/publishing",
     "CONTRIBUTING.md": "/docs/contributing",
@@ -101,20 +104,21 @@ function rewriteLinks(md) {
 /** group | slug | title | source path relative to repo root (or null = inline) */
 const PAGES = [
   ["Guides", "overview", "Overview", "README.md"],
+  ["Guides", "quickstart", "Layer 0 — Quickstart", "docs/layer-0-quickstart.md"],
+  ["Guides", "packages-overview", "Layer 1 — Packages", "docs/layer-1-packages.md"],
   ["Guides", "getting-started", "Getting Started", null],
   ["Guides", "contributing", "Contributing", "CONTRIBUTING.md"],
   ["Reference", "architecture", "Architecture", "docs/ARCHITECTURE.md"],
   ["Reference", "cli", "CLI Reference", "docs/CLI-SPEC.md"],
-  ["Reference", "packages", "Packages Overview", "docs/PACKAGES.md"],
   ["Reference", "decisions", "Decisions", "docs/DECISIONS.md"],
   ["Reference", "roadmap", "Roadmap", "docs/ROADMAP.md"],
   ["Reference", "publishing", "Publishing", "docs/PUBLISHING.md"],
-  ["Packages", "pkg-config", "@softeneers/config", "packages/config/README.md"],
-  ["Packages", "pkg-env", "@softeneers/env", "packages/env/README.md"],
-  ["Packages", "pkg-db", "@softeneers/db", "packages/db/README.md"],
-  ["Packages", "pkg-auth", "@softeneers/auth", "packages/auth/README.md"],
-  ["Packages", "pkg-email", "@softeneers/email", "packages/email/README.md"],
-  ["Packages", "pkg-storage", "@softeneers/storage", "packages/storage/README.md"],
+  ["Packages", "pkg-config", "@softeneers/config", "docs/layer-2-reference/config.md"],
+  ["Packages", "pkg-env", "@softeneers/env", "docs/layer-2-reference/env.md"],
+  ["Packages", "pkg-db", "@softeneers/db", "docs/layer-2-reference/db.md"],
+  ["Packages", "pkg-auth", "@softeneers/auth", "docs/layer-2-reference/auth.md"],
+  ["Packages", "pkg-email", "@softeneers/email", "docs/layer-2-reference/email.md"],
+  ["Packages", "pkg-storage", "@softeneers/storage", "docs/layer-2-reference/storage.md"],
 ];
 
 rmSync(OUT, { recursive: true, force: true });
