@@ -61,17 +61,18 @@ templates/
   minimal/          Zero-framework Node + TypeScript starter</code></pre>
 <p>Built with <strong>npm workspaces + Turborepo</strong> (npm-first; pnpm also works). Node ≥ 18.</p>
 <h2>Documentation</h2>
-<table><thead><tr><th>Doc</th><th>What's in it</th></tr></thead><tbody>
-<tr><td><a href="docs/ARCHITECTURE.html"><code>docs/ARCHITECTURE.md</code></a></td><td>Layout, package vs template, data flow, conventions</td></tr>
-<tr><td><a href="docs/ROADMAP.html"><code>docs/ROADMAP.md</code></a></td><td>The 8 sprints, the MVP, current status</td></tr>
-<tr><td><a href="docs/CLI-SPEC.html"><code>docs/CLI-SPEC.md</code></a></td><td><code>create-softeneers-app</code> prompts + algorithm</td></tr>
-<tr><td><a href="docs/PACKAGES.html"><code>docs/PACKAGES.md</code></a></td><td>Contract for each <code>@softeneers/*</code> package</td></tr>
+<p>The docs are organized in <strong>three layers</strong> (full index: <a href="docs/README.html"><code>docs/README.md</code></a>):</p>
+<table><thead><tr><th>Layer / doc</th><th>What's in it</th></tr></thead><tbody>
+<tr><td><a href="docs/layer-0-quickstart.html">Layer 0 — Quickstart</a></td><td>Spin up &amp; run a project in any combination</td></tr>
+<tr><td><a href="docs/layer-1-packages.html">Layer 1 — Packages</a></td><td>The <code>@softeneers/*</code> packages and how combinations use them</td></tr>
+<tr><td><a href="docs/layer-2-reference/README.html">Layer 2 — Reference</a></td><td>Each package as standalone software (full API)</td></tr>
+<tr><td><a href="docs/ARCHITECTURE.html"><code>docs/ARCHITECTURE.md</code></a></td><td>Layout, package vs template, conventions</td></tr>
+<tr><td><a href="docs/CLI-SPEC.html"><code>docs/CLI-SPEC.md</code></a></td><td><code>create-softeneers-app</code> contract + toggle engine</td></tr>
 <tr><td><a href="docs/DECISIONS.html"><code>docs/DECISIONS.md</code></a></td><td>Authoritative decisions / tiebreaker</td></tr>
+<tr><td><a href="docs/ROADMAP.html"><code>docs/ROADMAP.md</code></a></td><td>Sprints and current status</td></tr>
 <tr><td><a href="docs/PUBLISHING.html"><code>docs/PUBLISHING.md</code></a></td><td>How packages get to npm</td></tr>
 <tr><td><a href="CONTRIBUTING.html"><code>CONTRIBUTING.md</code></a></td><td>Setup, conventions, adding packages/templates</td></tr>
-<tr><td><a href="TODO.html"><code>TODO.md</code></a></td><td>The original getting-started plan (source of intent)</td></tr>
 </tbody></table>
-<p>Full docs index: <a href="docs/README.html"><code>docs/README.md</code></a>.</p>
 <h2>Working in this repo</h2>
 <p>npm-first, but pnpm works too (both workspace configs ship).</p>
 <pre><code>npm install         # install workspace deps

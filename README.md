@@ -44,18 +44,19 @@ Built with **npm workspaces + Turborepo** (npm-first; pnpm also works). Node ≥
 
 ## Documentation
 
-| Doc                                              | What's in it                                         |
-| ------------------------------------------------ | ---------------------------------------------------- |
-| [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) | Layout, package vs template, data flow, conventions  |
-| [`docs/ROADMAP.md`](./docs/ROADMAP.md)           | The 8 sprints, the MVP, current status               |
-| [`docs/CLI-SPEC.md`](./docs/CLI-SPEC.md)         | `create-softeneers-app` prompts + algorithm          |
-| [`docs/PACKAGES.md`](./docs/PACKAGES.md)         | Contract for each `@softeneers/*` package            |
-| [`docs/DECISIONS.md`](./docs/DECISIONS.md)       | Authoritative decisions / tiebreaker                 |
-| [`docs/PUBLISHING.md`](./docs/PUBLISHING.md)     | How packages get to npm                              |
-| [`CONTRIBUTING.md`](./CONTRIBUTING.md)           | Setup, conventions, adding packages/templates        |
-| [`TODO.md`](./TODO.md)                           | The original getting-started plan (source of intent) |
+The docs are organized in **three layers** (full index: [`docs/README.md`](./docs/README.md)):
 
-Full docs index: [`docs/README.md`](./docs/README.md).
+| Layer / doc | What's in it |
+| ----------- | ------------ |
+| [Layer 0 — Quickstart](./docs/layer-0-quickstart.md) | Spin up & run a project in any combination |
+| [Layer 1 — Packages](./docs/layer-1-packages.md) | The `@softeneers/*` packages and how combinations use them |
+| [Layer 2 — Reference](./docs/layer-2-reference/README.md) | Each package as standalone software (full API) |
+| [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) | Layout, package vs template, conventions |
+| [`docs/CLI-SPEC.md`](./docs/CLI-SPEC.md) | `create-softeneers-app` contract + toggle engine |
+| [`docs/DECISIONS.md`](./docs/DECISIONS.md) | Authoritative decisions / tiebreaker |
+| [`docs/ROADMAP.md`](./docs/ROADMAP.md) | Sprints and current status |
+| [`docs/PUBLISHING.md`](./docs/PUBLISHING.md) | How packages get to npm |
+| [`CONTRIBUTING.md`](./CONTRIBUTING.md) | Setup, conventions, adding packages/templates |
 
 ## Working in this repo
 

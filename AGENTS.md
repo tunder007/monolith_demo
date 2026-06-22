@@ -38,7 +38,9 @@ node apps/cli/dist/index.js my-app --yes   # run the generator from source
 - `packages/{config,env,db,auth,email,storage}` — the `@softeneers/*` libraries.
 - `templates/next-fullstack` — the project the CLI copies (Next.js `web` + Express/
   Sequelize/MySQL `server`). Payload, **not** a workspace member.
-- `docs/` — ARCHITECTURE, ROADMAP, CLI-SPEC, PACKAGES, DECISIONS, PUBLISHING (+ MANIFEST.json).
+- `docs/` — three layers (`layer-0-quickstart`, `layer-1-packages`,
+  `layer-2-reference/`) + ARCHITECTURE, ROADMAP, CLI-SPEC, DECISIONS, PUBLISHING
+  (+ MANIFEST.json).
 
 ## Rules (see docs/DECISIONS.md for the full rationale)
 
@@ -52,7 +54,7 @@ node apps/cli/dist/index.js my-app --yes   # run the generator from source
   from this repo, never ship `node_modules`/build output.
 - Tasks run through Turbo; **lint is the one exception** (a single root `eslint .`).
 - Every `@softeneers/*` package has `src/`, builds to `dist/`, ships a `node:test`
-  suite, and documents its contract in `docs/PACKAGES.md`.
+  suite, and has a deep reference page under `docs/layer-2-reference/`.
 - Never commit a real `.env` (only `.env.example`).
 - **Docs are dual-format** (D-07): edit the `.md` source, then `npm run build` to
   regenerate its committed `.html` companion. Never hand-edit a `.html` doc.

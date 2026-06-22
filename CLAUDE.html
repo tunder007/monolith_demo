@@ -63,8 +63,9 @@ node apps/cli/dist/index.js my-app --yes   # run the generator from source</code
 </ul>
 <p>Sequelize/MySQL <code>server</code>). Payload, <strong>not</strong> a workspace member.</p>
 <ul>
-<li><code>docs/</code> — ARCHITECTURE, ROADMAP, CLI-SPEC, PACKAGES, DECISIONS, PUBLISHING (+ MANIFEST.json).</li>
+<li><code>docs/</code> — three layers (<code>layer-0-quickstart</code>, <code>layer-1-packages</code>,</li>
 </ul>
+<p><code>layer-2-reference/</code>) + ARCHITECTURE, ROADMAP, CLI-SPEC, DECISIONS, PUBLISHING (+ MANIFEST.json).</p>
 <h2>Rules (see docs/DECISIONS.md for the full rationale)</h2>
 <ul>
 <li><strong>npm-first, PM-agnostic.</strong> Don't add npm-only or pnpm-only assumptions. Both an</li>
@@ -82,7 +83,7 @@ node apps/cli/dist/index.js my-app --yes   # run the generator from source</code
 <li>Tasks run through Turbo; <strong>lint is the one exception</strong> (a single root <code>eslint .</code>).</li>
 <li>Every <code>@softeneers/*</code> package has <code>src/</code>, builds to <code>dist/</code>, ships a <code>node:test</code></li>
 </ul>
-<p>suite, and documents its contract in <code>docs/PACKAGES.md</code>.</p>
+<p>suite, and has a deep reference page under <code>docs/layer-2-reference/</code>.</p>
 <ul>
 <li>Never commit a real <code>.env</code> (only <code>.env.example</code>).</li>
 <li><strong>Docs are dual-format</strong> (D-07): edit the <code>.md</code> source, then <code>npm run build</code> to</li>

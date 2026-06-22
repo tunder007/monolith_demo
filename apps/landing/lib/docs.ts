@@ -31,15 +31,18 @@ function resolveHref(href: string): string {
   const hash = frag ? `#${frag}` : "";
   const path = pathPart.split("?")[0];
 
-  const pkg = path.match(/(?:^|\/)(config|env|db|auth|email|storage)\/README\.md$/);
-  if (pkg) return `/docs/pkg-${pkg[1]}${hash}`;
+  const pkg = path.match(
+    /(?:^|\/)(?:layer-2-reference\/(config|env|db|auth|email|storage)\.md|(config|env|db|auth|email|storage)\/README\.md)$/,
+  );
+  if (pkg) return `/docs/pkg-${pkg[1] ?? pkg[2]}${hash}`;
 
   const base = path.split("/").pop() ?? "";
   const map: Record<string, string> = {
+    "layer-0-quickstart.md": "/docs/quickstart",
+    "layer-1-packages.md": "/docs/packages-overview",
     "ARCHITECTURE.md": "/docs/architecture",
     "ROADMAP.md": "/docs/roadmap",
     "CLI-SPEC.md": "/docs/cli",
-    "PACKAGES.md": "/docs/packages",
     "DECISIONS.md": "/docs/decisions",
     "PUBLISHING.md": "/docs/publishing",
     "CONTRIBUTING.md": "/docs/contributing",

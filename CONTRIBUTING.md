@@ -29,7 +29,8 @@ tiebreaker. The essentials:
    build/typecheck/test scripts), `tsconfig.json` extending
    `@softeneers/config/tsconfig/base.json`, `src/index.ts`, a `test/*.test.mjs`
    suite, and a `README.md`.
-2. Document its contract in [`docs/PACKAGES.md`](./docs/PACKAGES.md).
+2. Add a deep reference page under [`docs/layer-2-reference/`](./docs/layer-2-reference/README.md)
+   and list it in [`docs/layer-1-packages.md`](./docs/layer-1-packages.md).
 3. `npm install` then `npm run build && npm test`.
 
 ## Adding a template

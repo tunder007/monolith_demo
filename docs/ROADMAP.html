@@ -116,7 +116,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-
 <blockquote>Still deferred: converting the <code>next-fullstack</code> template to _consume_ the</blockquote>
 <blockquote>published <code>@softeneers/config</code>/<code>env</code> (awaits publish, Sprint 8).</blockquote>
 <h2>Definition of done per package (Sprints 3–7)</h2>
-<p>A <code>@softeneers/*</code> package is "real" when it: has source under <code>src/</code>, builds to <code>dist/</code>, exports the contract in <code>PACKAGES.md</code>, is not <code>private</code>, and has a <code>node:test</code> suite. All six (<code>config</code>, <code>env</code>, <code>db</code>, <code>auth</code>, <code>email</code>, <code>storage</code>) meet this. Template _consumption_ of the published packages is the remaining post-publish step.</p>
+<p>A <code>@softeneers/*</code> package is "real" when it: has source under <code>src/</code>, builds to <code>dist/</code>, documents its contract in <a href="layer-2-reference/README.html"><code>docs/layer-2-reference/</code></a>, is not <code>private</code>, and has a <code>node:test</code> suite. All six (<code>config</code>, <code>env</code>, <code>db</code>, <code>auth</code>, <code>email</code>, <code>storage</code>) meet this. Templates already consume the published <code>env</code>/<code>db</code>/<code>auth</code> via their toggles.</p>
 <h2>Publishing</h2>
 <p>See <a href="PUBLISHING.html"><code>PUBLISHING.md</code></a> for the order, the <code>npm pack</code> pre-flight, and the (manual) publish commands.</p>
 <h2>Quality benchmark</h2>
