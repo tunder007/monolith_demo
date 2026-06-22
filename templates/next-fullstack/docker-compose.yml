@@ -1,0 +1,23 @@
+# Local MySQL for the generated project.
+# Credentials must match .env (DB_*). Defaults below mirror .env.example.
+services:
+  db:
+    image: mysql:8
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    environment:
+      # Empty root password to match the .env.example default. Set a real
+      # password in production and update DB_PASSWORD accordingly.
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "${DB_NAME:-app_dev}"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  db_data:

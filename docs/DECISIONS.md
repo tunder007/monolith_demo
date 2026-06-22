@@ -1,0 +1,57 @@
+# Authoritative Decisions
+
+The tiebreaker document. When any other doc, comment, or code seems to
+contradict another, **this file is authoritative**. Each entry is dated and
+states the decision, the rationale, and what it overrides.
+
+Format: `D-NN — decision (date)`.
+
+---
+
+## D-01 — npm-first, but package-manager-agnostic (2026-06-22)
+
+The framework, the template, and generated projects must work with **npm or
+pnpm**. npm is the default and the committed lockfile is `package-lock.json`
+(`pnpm-lock.yaml` is gitignored). The repo ships both an npm `workspaces` field
+and `pnpm-workspace.yaml`; `packageManager` is pinned to npm because Turborepo
+requires it to resolve the workspace.
+
+**Overrides** `TODO.md` §8, which named pnpm as the package manager.
+
+## D-02 — Templates are payload, not workspace members (2026-06-22)
+
+`templates/*` are excluded from both workspace globs. They are copied verbatim by
+the CLI and must stay self-contained (no `node_modules`, no `workspace:` links to
+this repo's packages). A template consumes a published `@softeneers/*` only after
+that package is published.
+
+## D-03 — Build tooling lives at the repo root (2026-06-22)
+
+`typescript`, `tsx`, `eslint`, `prettier`, `turbo`, and the typescript-eslint
+stack are root devDependencies, shared by all packages. Packages declare only
+their own runtime deps. `@softeneers/config` lists the lint stack as
+`peerDependencies` for publish correctness.
+
+**Rationale**: per-package tooling devDeps made npm leave dangling `.bin`
+symlinks, and a workspace package owning the typescript-eslint graph crashed
+npm's link resolver. Root-only tooling avoids both.
+
+## D-04 — Lint is a single root pass; everything else goes through Turbo (2026-06-22)
+
+`npm run lint` runs `eslint .` once at the root (flat config, ignores
+dist/.next/node_modules/templates). `build`, `dev`, `typecheck`, `test` run
+through Turbo for caching and topological order.
+
+## D-05 — `@softeneers/env` exposes `createEnv`, not a pre-built `env` (2026-06-22)
+
+The package can't know an app's schema ahead of time, so the API is
+`createEnv({ schema })` (returns a frozen typed object) plus `EnvValidationError`
+and a re-exported `z`. The conventional name for the result is `env`.
+
+**Overrides** earlier prose in `PACKAGES.md` that implied a ready-made `env` export.
+
+## D-06 — Reproducible installs use `npm ci` (2026-06-22)
+
+`package-lock.json` is committed. CI and clean setups use `npm ci`. Incremental
+`npm install` on some Node/npm versions can leave a partially-corrupted tree; a
+clean install (or `npm ci`) is always sound.

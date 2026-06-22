@@ -1,0 +1,38 @@
+{
+  "name": "@softeneers/storage",
+  "version": "0.1.0",
+  "description": "S3-compatible object storage for Softeneers projects (AWS S3, Cloudflare R2, MinIO).",
+  "type": "module",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0",
+    "@aws-sdk/s3-request-presigner": "^3.600.0"
+  },
+  "author": "Tudor Damian",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tunder007/monolith_demo.git",
+    "directory": "packages/storage"
+  },
+  "homepage": "https://github.com/tunder007/monolith_demo#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}

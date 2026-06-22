@@ -1,0 +1,40 @@
+{
+  "name": "@softeneers/email",
+  "version": "0.1.0",
+  "description": "Transactional email for Softeneers projects: a Resend client, sendEmail, and React Email templates.",
+  "type": "module",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@react-email/components": "^1.0.0",
+    "@react-email/render": "^2.0.0",
+    "react": "^19.0.0",
+    "resend": "^6.0.0"
+  },
+  "author": "Tudor Damian",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tunder007/monolith_demo.git",
+    "directory": "packages/email"
+  },
+  "homepage": "https://github.com/tunder007/monolith_demo#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}

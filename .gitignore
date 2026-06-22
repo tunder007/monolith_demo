@@ -10,10 +10,29 @@
 **/node_modules
 
 # Build outputs
-backend/dist
-frontend/.next
-frontend/out
-frontend/build
+**/dist
+**/.next
+**/out
+**/build
+
+# Monorepo tooling
+.turbo
+**/.turbo
+.pnpm-store
+
+# npm-first: package-lock.json is the committed lockfile. pnpm still works
+# locally (both PMs supported) but its lockfile is not committed.
+pnpm-lock.yaml
+**/pnpm-lock.yaml
+
+# CLI build artifact: templates are bundled into the package at build time
+/apps/cli/templates
+
+# Benchmark machine outputs (regenerated; PROJECT-BENCHMARK.md is the kept summary)
+benchmark.html
+benchmark.json
+project-benchmark.html
+project-benchmark.json
 
 # Logs
 *.log
