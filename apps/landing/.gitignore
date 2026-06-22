@@ -1,0 +1,12 @@
+# Next.js
+/.next/
+/out/
+next-env.d.ts
+
+# deps / vercel
+/node_modules
+.vercel
+
+# env
+.env*
+!.env.example

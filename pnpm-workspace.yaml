@@ -4,5 +4,6 @@
 # verbatim by create-softeneers-app into a new project, so their dependencies
 # and placeholder files must not be hoisted or linked into this workspace.
 packages:
-  - "apps/*"
+  - "apps/cli"
+  - "apps/docs"
   - "packages/*"

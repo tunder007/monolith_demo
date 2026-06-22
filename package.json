@@ -9,7 +9,8 @@
     "node": ">=18"
   },
   "workspaces": [
-    "apps/*",
+    "apps/cli",
+    "apps/docs",
     "packages/*"
   ],
   "scripts": {
