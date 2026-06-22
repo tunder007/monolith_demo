@@ -36,8 +36,11 @@ export async function promptTemplate(): Promise<string> {
 
 const TOGGLE_LABELS: Record<ToggleKey, string> = {
   db: "Include a database? (CRUD persisted to MySQL via Sequelize)",
-  auth: "Include authentication? (email + password via better-auth)",
+  auth: "Include authentication? (email + password via better-auth, with UI)",
   docker: "Include a Docker recipe? (docker-compose for local services)",
+  email: "Include transactional email? (Resend + React Email)",
+  storage: "Include object storage? (S3 / R2 / MinIO uploads)",
+  payments: "Include Stripe payments? (checkout, subscriptions, webhooks)",
 };
 
 /**
@@ -49,7 +52,14 @@ export async function promptToggles(
   defaults: Partial<Toggles>,
   overrides: Partial<Toggles>,
 ): Promise<Toggles> {
-  const result: Toggles = { db: false, auth: false, docker: false };
+  const result: Toggles = {
+    db: false,
+    auth: false,
+    docker: false,
+    email: false,
+    storage: false,
+    payments: false,
+  };
   for (const key of Object.keys(defaults) as ToggleKey[]) {
     if (overrides[key] !== undefined) {
       result[key] = overrides[key]!;

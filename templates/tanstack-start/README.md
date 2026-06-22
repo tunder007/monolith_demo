@@ -27,8 +27,22 @@ src/routes/cars.tsx         cars CRUD UI (loader + server functions)
 src/server/cars.ts          createServerFn RPCs (list / create / remove)
 src/server/store.ts         data layer (MySQL or in-memory)
 # #if auth
+src/routes/login.tsx        sign-in / sign-up UI
+src/routes/account.tsx      session + sign-out UI
+src/lib/auth-client.ts      better-auth/react client
 src/routes/api/auth/$.ts    better-auth catch-all route (/api/auth/*)
 src/server/auth.ts          better-auth instance
+# #endif
+# #if payments
+src/routes/billing.tsx      Buy / Subscribe UI
+src/server/payments.ts      Stripe server functions
+src/routes/api/webhooks/stripe.ts   verified Stripe webhook
+# #endif
+# #if email
+src/server/email.ts         sendWelcomeEmail server function
+# #endif
+# #if storage
+src/server/storage.ts       upload / signed-URL / delete server functions
 # #endif
 ```
 
@@ -54,11 +68,52 @@ npm run db:migrate && npm run db:seed
 # #endif
 # #if auth
 
-## Authentication
+## Authentication (with UI)
 
 Email + password auth via better-auth ([`@softeneers/auth`](https://www.npmjs.com/package/@softeneers/auth)),
-served at `/api/auth/*`. Set a strong `AUTH_SECRET` in `.env`, and add the
-`better-auth/react` client in your components to drive sign-in/up flows.
+served at `/api/auth/*`, **with the UI included**: visit `/login` to sign up or
+in, and `/account` to see the session and sign out (driven by the
+`better-auth/react` client in `src/lib/auth-client.ts`). Set a strong
+`AUTH_SECRET` in `.env`.
+# #endif
+# #if email
+
+## Email
+
+Transactional email via Resend ([`@softeneers/email`](https://www.npmjs.com/package/@softeneers/email)).
+Set `RESEND_API_KEY` + `EMAIL_FROM` in `.env`, then call the `sendWelcomeEmail`
+server function from any component.
+# #endif
+# #if storage
+
+## Storage
+
+S3-compatible uploads ([`@softeneers/storage`](https://www.npmjs.com/package/@softeneers/storage),
+AWS S3 / Cloudflare R2 / MinIO) via the `uploadText` / `getFileUrl` / `removeFile`
+server functions. Set the `S3_*` keys in `.env`.
+# #endif
+# #if payments
+
+## Payments (Stripe)
+
+Stripe checkout, subscriptions, the billing portal, and a verified webhook
+([`@softeneers/payments`](https://www.npmjs.com/package/@softeneers/payments)) —
+**all pre-wired, with a `/billing` page**. The only thing you do is paste your
+keys into `.env`:
+
+```
+STRIPE_SECRET_KEY=sk_test_…
+STRIPE_WEBHOOK_SECRET=whsec_…
+STRIPE_PRICE_ID=price_…                # one-time price
+STRIPE_SUBSCRIPTION_PRICE_ID=price_…   # recurring price
+```
+
+Get test keys at <https://dashboard.stripe.com/test/apikeys>, create two Prices,
+and forward webhooks locally with the Stripe CLI:
+
+```bash
+stripe listen --forward-to localhost:3000/api/webhooks/stripe
+```
 # #endif
 
 ## Getting started

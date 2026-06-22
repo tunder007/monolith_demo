@@ -50,10 +50,13 @@ npm run dev</code></pre>
 </tbody></table>
 <h2>The toggles</h2>
 <p>Each toggle defaults <strong>off</strong>, so the default project is a lean, zero-setup demo. Turn one on to add that capability:</p>
-<table><thead><tr><th>Toggle</th><th>Off (default)</th><th>On (<code>--db</code> / <code>--auth</code> / <code>--docker</code>)</th></tr></thead><tbody>
-<tr><td><code>db</code></td><td>pre-seeded in-memory store</td><td>MySQL via <a href="layer-2-reference/db.html"><code>@softeneers/db</code></a>, <strong>falls back to in-memory if MySQL is unreachable</strong></td></tr>
-<tr><td><code>auth</code></td><td>no auth</td><td>email+password via <a href="layer-2-reference/auth.html"><code>@softeneers/auth</code></a> at <code>/api/auth/*</code></td></tr>
-<tr><td><code>docker</code></td><td>no Docker files</td><td><code>docker-compose.yml</code> with a MySQL service</td></tr>
+<table><thead><tr><th>Toggle</th><th>On adds…</th></tr></thead><tbody>
+<tr><td><code>--db</code></td><td>MySQL via <a href="layer-2-reference/db.html"><code>@softeneers/db</code></a> — <strong>falls back to in-memory if unreachable</strong></td></tr>
+<tr><td><code>--auth</code></td><td>email+password via <a href="layer-2-reference/auth.html"><code>@softeneers/auth</code></a> at <code>/api/auth/*</code> (+ sign-in/up UI in <code>tanstack-start</code>)</td></tr>
+<tr><td><code>--docker</code></td><td><code>docker-compose.yml</code> with a MySQL service</td></tr>
+<tr><td><code>--email</code></td><td>transactional email via <a href="layer-2-reference/email.html"><code>@softeneers/email</code></a> (<code>POST /api/email/welcome</code>)</td></tr>
+<tr><td><code>--storage</code></td><td>S3/R2/MinIO uploads via <a href="layer-2-reference/storage.html"><code>@softeneers/storage</code></a> (<code>/api/files/*</code>)</td></tr>
+<tr><td><code>--payments</code></td><td>Stripe checkout + subscriptions + portal + webhook via <a href="layer-2-reference/payments.html"><code>@softeneers/payments</code></a> (+ <code>/billing</code> UI) — just paste your keys</td></tr>
 </tbody></table>
 <blockquote><strong>Every combination runs with one <code>npm run dev</code>.</strong> With <code>--db</code> and no database</blockquote>
 <blockquote>running, the app starts on the pre-seeded in-memory store and tells you how to</blockquote>

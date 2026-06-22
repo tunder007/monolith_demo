@@ -36,10 +36,12 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-
 <pre><code>npx create-softeneers-app@latest my-app</code></pre>
 <p>…that scaffolds an organized, scalable, standardized project from a template.</p>
 <p><strong>🌐 Live site:</strong> &lt;https://softeneers-landing.vercel.app&gt;</p>
-<blockquote><strong>Status:</strong> live on npm. <code>create-softeneers-app</code> (and the six <code>@softeneers/*</code></blockquote>
+<blockquote><strong>Status:</strong> live on npm. <code>create-softeneers-app</code> (and the seven <code>@softeneers/*</code></blockquote>
 <blockquote>packages) are published; the generator ships <strong>five templates</strong> — <code>next-fullstack</code>,</blockquote>
 <blockquote><code>express-api</code>, <code>hono-api</code>, <code>tanstack-start</code>, <code>minimal</code> — with composable</blockquote>
-<blockquote><code>db</code>/<code>auth</code>/<code>docker</code> toggles, each build-verified across its combinations. See</blockquote>
+<blockquote>composable <code>db</code>/<code>auth</code>/<code>docker</code>/<code>email</code>/<code>storage</code>/<code>payments</code> toggles (auth ships</blockquote>
+<blockquote>a sign-in UI and payments a Stripe billing flow in <code>tanstack-start</code>), each</blockquote>
+<blockquote>build-verified across its combinations. See</blockquote>
 <blockquote><a href="docs/ROADMAP.html"><code>docs/ROADMAP.md</code></a> and <a href="docs/CLI-SPEC.html"><code>docs/CLI-SPEC.md</code></a>.</blockquote>
 <h2>Monorepo map</h2>
 <pre><code>apps/
@@ -53,11 +55,12 @@ packages/
   auth/         @softeneers/auth — better-auth + Express helpers
   email/        @softeneers/email — Resend + React Email templates
   storage/      @softeneers/storage — S3-compatible (S3/R2/MinIO)
+  payments/     @softeneers/payments — Stripe checkout/subscriptions/webhooks
 templates/
   next-fullstack/   Next.js + Express + Sequelize + MySQL (seeded from a working monolith)
-  express-api/      Express 5 + TypeScript REST API (cars CRUD) · db/auth/docker toggles
-  hono-api/         Hono + TypeScript API (cars CRUD)           · db/auth/docker toggles
-  tanstack-start/   TanStack Start fullstack React app          · db/auth/docker toggles
+  express-api/      Express 5 + TypeScript REST API (cars CRUD) · db/auth/docker/email/storage/payments toggles
+  hono-api/         Hono + TypeScript API (cars CRUD)           · db/auth/docker/email/storage/payments toggles
+  tanstack-start/   TanStack Start fullstack React app          · db/auth/docker/email/storage/payments toggles
   minimal/          Zero-framework Node + TypeScript starter</code></pre>
 <p>Built with <strong>npm workspaces + Turborepo</strong> (npm-first; pnpm also works). Node ≥ 18.</p>
 <h2>Documentation</h2>
@@ -85,7 +88,7 @@ npm run typecheck</code></pre>
 <pre><code>npm run build
 node apps/cli/dist/index.js my-app --yes   # or: node apps/cli/dist/index.js .   (current dir)</code></pre>
 <h2>What's next</h2>
-<p>The express/hono/tanstack templates already consume the published <code>@softeneers/*</code> packages (<code>env</code>/<code>db</code>/<code>auth</code>) via their toggles. Remaining work: convert <code>next-fullstack</code> to consume them too, expand the <code>auth</code> toggle into a ready-made sign-in/up UI per template, and add <code>@softeneers/email</code>/<code>storage</code> toggles. See <a href="docs/ROADMAP.html"><code>docs/ROADMAP.md</code></a>.</p></main>
+<p>The express/hono/tanstack templates consume the published <code>@softeneers/*</code> packages (<code>env</code>/<code>db</code>/<code>auth</code>/<code>email</code>/<code>storage</code>/<code>payments</code>) via their toggles. Remaining work: convert <code>next-fullstack</code> to consume them too, add the auth/billing UI to the remaining frontends, and grow the template catalogue. See <a href="docs/ROADMAP.html"><code>docs/ROADMAP.md</code></a>.</p></main>
 <footer>Softeneers Framework — human view generated from the canonical Markdown.
 Do not edit by hand; run <code>npm run build</code> (the <code>.md</code> is the source of truth).</footer>
 </body></html>

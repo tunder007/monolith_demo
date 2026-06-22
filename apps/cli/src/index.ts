@@ -5,7 +5,7 @@ import { basename, resolve } from "node:path";
 import { intro, log, note, outro, spinner } from "@clack/prompts";
 
 import { CliError, HELP_TEXT, parseArgs } from "./args.js";
-import { applyToggles, type Toggles, templateToggleDefaults } from "./fragments.js";
+import { applyToggles, TOGGLE_KEYS, type Toggles, templateToggleDefaults } from "./fragments.js";
 import { promptProjectName, promptTemplate, promptToggles } from "./prompts.js";
 import {
   assertTargetUsable,
@@ -62,13 +62,18 @@ async function main(): Promise<void> {
 
   // 3. Feature toggles (db / auth / docker) — only those the template supports.
   const toggleDefaults = templateToggleDefaults(templateDir);
-  const overrides: Partial<Toggles> = { db: opts.db, auth: opts.auth, docker: opts.docker };
+  const overrides: Partial<Toggles> = {
+    db: opts.db,
+    auth: opts.auth,
+    docker: opts.docker,
+    email: opts.email,
+    storage: opts.storage,
+    payments: opts.payments,
+  };
   const toggles: Toggles = opts.yes
-    ? {
-        db: overrides.db ?? toggleDefaults.db ?? false,
-        auth: overrides.auth ?? toggleDefaults.auth ?? false,
-        docker: overrides.docker ?? toggleDefaults.docker ?? false,
-      }
+    ? (Object.fromEntries(
+        TOGGLE_KEYS.map((key) => [key, overrides[key] ?? toggleDefaults[key] ?? false]),
+      ) as Toggles)
     : await promptToggles(toggleDefaults, overrides);
 
   // 4. Generate.

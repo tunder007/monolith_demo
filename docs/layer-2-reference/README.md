@@ -16,6 +16,7 @@ For the bird's-eye view of how packages combine, see
 - [`@softeneers/auth`](./auth.md) — email+password auth on better-auth
 - [`@softeneers/email`](./email.md) — transactional email via Resend + React Email
 - [`@softeneers/storage`](./storage.md) — S3-compatible object storage
+- [`@softeneers/payments`](./payments.md) — Stripe checkout, subscriptions, billing portal, webhooks
 
 Each is published to npm at `0.1.0`, ships TypeScript types and a `node:test`
 suite, and builds from `src/` to `dist/`.

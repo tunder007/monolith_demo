@@ -42,15 +42,16 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-
 <tr><td><code>@softeneers/auth</code></td><td>Email+password auth on better-auth, with Node/Express helpers</td><td><a href="layer-2-reference/auth.html">auth</a></td></tr>
 <tr><td><code>@softeneers/email</code></td><td>Transactional email via Resend + React Email templates</td><td><a href="layer-2-reference/email.html">email</a></td></tr>
 <tr><td><code>@softeneers/storage</code></td><td>S3-compatible object storage (S3 / R2 / MinIO)</td><td><a href="layer-2-reference/storage.html">storage</a></td></tr>
+<tr><td><code>@softeneers/payments</code></td><td>Stripe checkout, subscriptions, billing portal, webhooks</td><td><a href="layer-2-reference/payments.html">payments</a></td></tr>
 </tbody></table>
 <p>Install any of them directly:</p>
 <pre><code>npm i @softeneers/env @softeneers/db @softeneers/auth</code></pre>
 <h2>How the templates compose them</h2>
 <p>The generator wires packages into a project based on the template and its toggles. A toggle being <strong>off</strong> means that package isn't installed at all.</p>
-<table><thead><tr><th></th><th><code>env</code></th><th><code>db</code></th><th><code>auth</code></th><th><code>config</code></th><th><code>email</code></th><th><code>storage</code></th></tr></thead><tbody>
-<tr><td><code>express-api</code></td><td>always</td><td><code>--db</code></td><td><code>--auth</code></td><td>—</td><td>add it yourself</td><td>add it yourself</td></tr>
-<tr><td><code>hono-api</code></td><td>always</td><td><code>--db</code></td><td><code>--auth</code></td><td>—</td><td>add it yourself</td><td>add it yourself</td></tr>
-<tr><td><code>tanstack-start</code></td><td>always</td><td><code>--db</code></td><td><code>--auth</code></td><td>—</td><td>add it yourself</td><td>add it yourself</td></tr>
+<table><thead><tr><th></th><th><code>env</code></th><th><code>db</code></th><th><code>auth</code></th><th><code>email</code></th><th><code>storage</code></th><th><code>payments</code></th></tr></thead><tbody>
+<tr><td><code>express-api</code></td><td>always</td><td><code>--db</code></td><td><code>--auth</code></td><td><code>--email</code></td><td><code>--storage</code></td><td><code>--payments</code></td></tr>
+<tr><td><code>hono-api</code></td><td>always</td><td><code>--db</code></td><td><code>--auth</code></td><td><code>--email</code></td><td><code>--storage</code></td><td><code>--payments</code></td></tr>
+<tr><td><code>tanstack-start</code></td><td>always</td><td><code>--db</code></td><td><code>--auth</code> (+ UI)</td><td><code>--email</code></td><td><code>--storage</code></td><td><code>--payments</code> (+ UI)</td></tr>
 <tr><td><code>next-fullstack</code></td><td>—</td><td>built-in MySQL</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 <tr><td><code>minimal</code></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 </tbody></table>
@@ -59,10 +60,13 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-
 </ul>
 <p>validated before an app boots.</p>
 <ul>
-<li><strong><code>db</code> and <code>auth</code></strong> light up their packages when you pass <code>--db</code> / <code>--auth</code>.</li>
-<li><strong><code>config</code>, <code>email</code>, <code>storage</code></strong> aren't auto-wired yet; add them when you need</li>
+<li><strong>Every other package is a toggle</strong> (<code>--db</code>, <code>--auth</code>, <code>--email</code>, <code>--storage</code>,</li>
 </ul>
-<p>them (each is one <code>npm i</code> plus a few lines — see its Layer 2 page).</p>
+<p><code>--payments</code>). Off means the package isn't installed and its routes/files don't exist; on means it's wired and working from the keys in <code>.env</code>.</p>
+<ul>
+<li><strong><code>@softeneers/config</code></strong> is tooling, not a runtime package — adopt it in your</li>
+</ul>
+<p>repo's <code>tsconfig</code>/<code>eslint</code>/<code>prettier</code> (see its Layer 2 page).</p>
 <h2>Taking advantage of each combination</h2>
 <p>Think of a generated project as a base you extend by turning packages on.</p>
 <h3>Just an API (default)</h3>
@@ -71,10 +75,14 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-
 <p>Adds <code>@softeneers/db</code>: the CRUD now persists to MySQL via Sequelize, with tables auto-created and seeded on first connect. If MySQL isn't running, the app <strong>falls back to the in-memory store</strong>, so <code>npm run dev</code> always works. Promote to real persistence by starting MySQL (<code>--docker</code> gives you a <code>docker-compose.yml</code>).</p>
 <h3>API + auth (<code>--auth</code>)</h3>
 <p>Adds <code>@softeneers/auth</code>: better-auth is mounted at <code>/api/auth/*</code> with email+password enabled. <code>sign-up</code>/<code>sign-in</code>/<code>get-session</code> work immediately (better-auth uses an in-memory store until you give it a database).</p>
+<h3>API + email (<code>--email</code>)</h3>
+<p>Adds <code>@softeneers/email</code>: a Resend client + a <code>POST /api/email/welcome</code> demo endpoint (a server function in <code>tanstack-start</code>). Set <code>RESEND_API_KEY</code> to send.</p>
+<h3>API + storage (<code>--storage</code>)</h3>
+<p>Adds <code>@softeneers/storage</code>: upload / signed-download-URL / delete routes (server functions in <code>tanstack-start</code>) over S3 / Cloudflare R2 / MinIO. Set the <code>S3_*</code> keys to use it.</p>
+<h3>API + payments (<code>--payments</code>)</h3>
+<p>Adds <code>@softeneers/payments</code>: <strong>Stripe checkout (one-time + subscription), the billing portal, and a verified webhook</strong>, all pre-wired. The *only* thing you do is paste <code>STRIPE_SECRET_KEY</code> + <code>STRIPE_WEBHOOK_SECRET</code> (and two Price ids) into <code>.env</code>. In <code>tanstack-start</code> you also get a <code>/billing</code> page with Buy/Subscribe buttons. See <a href="layer-2-reference/payments.html">the payments reference</a>.</p>
 <h3>Fullstack (<code>tanstack-start</code>)</h3>
-<p>The same <code>env</code>/<code>db</code>/<code>auth</code> story, but the cars CRUD is driven through type-safe <strong>server functions</strong> and rendered as a React UI. <code>--db</code>/<code>--auth</code> behave exactly as above; the server functions keep the DB code off the client.</p>
-<h3>Adding the rest</h3>
-<p><code>@softeneers/email</code> (transactional mail) and <code>@softeneers/storage</code> (file uploads) are independent — drop them into any template when a feature needs them. Their Layer 2 pages have copy-paste setups.</p>
+<p>The same toggle story, but the UI is included: the cars CRUD is type-safe <strong>server functions</strong> rendered as React; <code>--auth</code> adds <strong>sign-in/sign-up/account pages</strong>; <code>--payments</code> adds the <strong>billing page</strong>. Server code (DB, Stripe secret, S3 keys) stays off the client bundle.</p>
 <h2>Where to go next</h2>
 <ul>
 <li><strong>Spin something up:</strong> <a href="layer-0-quickstart.html">Layer 0 — Quickstart</a></li>

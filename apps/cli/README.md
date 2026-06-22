@@ -14,9 +14,9 @@ Five templates, each for a different kind of user, with composable toggles:
 | Template         | What you get                              | Toggles            |
 | ---------------- | ----------------------------------------- | ------------------ |
 | `next-fullstack` | Next.js web + Express/Sequelize/MySQL API | (all-in)           |
-| `express-api`    | Express 5 + TypeScript REST API (cars CRUD) | db · auth · docker |
-| `hono-api`       | Hono + TypeScript API (cars CRUD)         | db · auth · docker |
-| `tanstack-start` | TanStack Start fullstack React app        | db · auth · docker |
+| `express-api`    | Express 5 + TypeScript REST API (cars CRUD) | db · auth · docker · email · storage · payments |
+| `hono-api`       | Hono + TypeScript API (cars CRUD)         | db · auth · docker · email · storage · payments |
+| `tanstack-start` | TanStack Start fullstack React app (+ auth/billing UI) | db · auth · docker · email · storage · payments |
 | `minimal`        | Zero-framework Node + TypeScript starter  | (none)             |
 
 ```bash
@@ -25,9 +25,9 @@ npx create-softeneers-app@latest api -t express-api --yes      # all defaults
 npx create-softeneers-app@latest api -t hono-api --no-auth --no-docker
 ```
 
-Flags: `--template <slug>`, `--yes`/`-y`, `--db`/`--no-db`, `--auth`/`--no-auth`,
-`--docker`/`--no-docker`, `--no-install`, `--no-git`, `--pm <pnpm|npm|yarn>`,
-`--help`, `--version`. See
+Flags: `--template <slug>`, `--yes`/`-y`, `--db`, `--auth`, `--docker`, `--email`,
+`--storage`, `--payments` (each with a `--no-*` form), `--no-install`, `--no-git`,
+`--pm <pnpm|npm|yarn>`, `--help`, `--version`. See
 [`../../docs/CLI-SPEC.md`](../../docs/CLI-SPEC.md) for the full contract.
 
 ## Local development

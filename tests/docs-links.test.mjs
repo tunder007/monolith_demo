@@ -21,6 +21,7 @@ const DOCS = [
   "docs/layer-2-reference/auth.md",
   "docs/layer-2-reference/email.md",
   "docs/layer-2-reference/storage.md",
+  "docs/layer-2-reference/payments.md",
   "docs/ARCHITECTURE.md",
   "docs/ROADMAP.md",
   "docs/CLI-SPEC.md",
@@ -33,6 +34,7 @@ const DOCS = [
   "packages/auth/README.md",
   "packages/email/README.md",
   "packages/storage/README.md",
+  "packages/payments/README.md",
 ];
 
 const LINK = /\]\(([^)]+)\)/g;

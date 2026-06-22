@@ -1,5 +1,12 @@
 {
-  "toggles": { "db": false, "auth": false, "docker": false },
+  "toggles": {
+    "db": false,
+    "auth": false,
+    "docker": false,
+    "email": false,
+    "storage": false,
+    "payments": false
+  },
   "fragments": {
     "db": {
       "removePaths": ["src/db.ts", "src/scripts", "docker-compose.yml"],
@@ -12,6 +19,18 @@
     },
     "docker": {
       "removePaths": ["docker-compose.yml"]
+    },
+    "email": {
+      "removePaths": ["src/email"],
+      "removeDeps": ["@softeneers/email"]
+    },
+    "storage": {
+      "removePaths": ["src/storage"],
+      "removeDeps": ["@softeneers/storage"]
+    },
+    "payments": {
+      "removePaths": ["src/payments"],
+      "removeDeps": ["@softeneers/payments"]
     }
   }
 }

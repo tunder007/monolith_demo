@@ -19,6 +19,9 @@ export interface CliOptions {
   db?: boolean;
   auth?: boolean;
   docker?: boolean;
+  email?: boolean;
+  storage?: boolean;
+  payments?: boolean;
   help: boolean;
   version: boolean;
 }
@@ -79,6 +82,24 @@ export function parseArgs(argv: string[]): CliOptions {
       case "--no-docker":
         opts.docker = false;
         break;
+      case "--email":
+        opts.email = true;
+        break;
+      case "--no-email":
+        opts.email = false;
+        break;
+      case "--storage":
+        opts.storage = true;
+        break;
+      case "--no-storage":
+        opts.storage = false;
+        break;
+      case "--payments":
+        opts.payments = true;
+        break;
+      case "--no-payments":
+        opts.payments = false;
+        break;
       case "--help":
       case "-h":
         opts.help = true;
@@ -127,8 +148,11 @@ Options:
   -t, --template <name>   Template to use (default: prompt)
   -y, --yes               Accept defaults, no prompts
       --db / --no-db      Include a database layer (template default if unset)
-      --auth / --no-auth  Include authentication (template default if unset)
-      --docker / --no-docker  Include a Docker recipe (template default if unset)
+      --auth / --no-auth  Include authentication + UI (template default if unset)
+      --docker / --no-docker      Include a Docker recipe
+      --email / --no-email        Include transactional email (@softeneers/email)
+      --storage / --no-storage    Include object storage (@softeneers/storage)
+      --payments / --no-payments  Include Stripe payments (@softeneers/payments)
       --no-install        Don't install dependencies
       --no-git            Don't run "git init"
       --pm <npm|pnpm|yarn> Package manager (default: auto-detected, else npm)

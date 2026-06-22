@@ -38,15 +38,15 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #8884; font-
 <p>Five templates, each for a different kind of user, with composable toggles:</p>
 <table><thead><tr><th>Template</th><th>What you get</th><th>Toggles</th></tr></thead><tbody>
 <tr><td><code>next-fullstack</code></td><td>Next.js web + Express/Sequelize/MySQL API</td><td>(all-in)</td></tr>
-<tr><td><code>express-api</code></td><td>Express 5 + TypeScript REST API (cars CRUD)</td><td>db · auth · docker</td></tr>
-<tr><td><code>hono-api</code></td><td>Hono + TypeScript API (cars CRUD)</td><td>db · auth · docker</td></tr>
-<tr><td><code>tanstack-start</code></td><td>TanStack Start fullstack React app</td><td>db · auth · docker</td></tr>
+<tr><td><code>express-api</code></td><td>Express 5 + TypeScript REST API (cars CRUD)</td><td>db · auth · docker · email · storage · payments</td></tr>
+<tr><td><code>hono-api</code></td><td>Hono + TypeScript API (cars CRUD)</td><td>db · auth · docker · email · storage · payments</td></tr>
+<tr><td><code>tanstack-start</code></td><td>TanStack Start fullstack React app (+ auth/billing UI)</td><td>db · auth · docker · email · storage · payments</td></tr>
 <tr><td><code>minimal</code></td><td>Zero-framework Node + TypeScript starter</td><td>(none)</td></tr>
 </tbody></table>
 <pre><code>npx create-softeneers-app@latest my-app                       # interactive
 npx create-softeneers-app@latest api -t express-api --yes      # all defaults
 npx create-softeneers-app@latest api -t hono-api --no-auth --no-docker</code></pre>
-<p>Flags: <code>--template &lt;slug&gt;</code>, <code>--yes</code>/<code>-y</code>, <code>--db</code>/<code>--no-db</code>, <code>--auth</code>/<code>--no-auth</code>, <code>--docker</code>/<code>--no-docker</code>, <code>--no-install</code>, <code>--no-git</code>, <code>--pm &lt;pnpm|npm|yarn&gt;</code>, <code>--help</code>, <code>--version</code>. See <a href="../../docs/CLI-SPEC.html"><code>../../docs/CLI-SPEC.md</code></a> for the full contract.</p>
+<p>Flags: <code>--template &lt;slug&gt;</code>, <code>--yes</code>/<code>-y</code>, <code>--db</code>, <code>--auth</code>, <code>--docker</code>, <code>--email</code>, <code>--storage</code>, <code>--payments</code> (each with a <code>--no-*</code> form), <code>--no-install</code>, <code>--no-git</code>, <code>--pm &lt;pnpm|npm|yarn&gt;</code>, <code>--help</code>, <code>--version</code>. See <a href="../../docs/CLI-SPEC.html"><code>../../docs/CLI-SPEC.md</code></a> for the full contract.</p>
 <h2>Local development</h2>
 <pre><code>npm run build -w create-softeneers-app    # tsc + bundle templates → dist/ + templates/
 node apps/cli/dist/index.js my-app --yes  # run the built CLI

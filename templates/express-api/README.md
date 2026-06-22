@@ -32,6 +32,20 @@ npm run db:reset   # drop, recreate, reseed
 # #if auth
 | ALL    | `/api/auth/*`    | better-auth routes |
 # #endif
+# #if email
+| POST   | `/api/email/welcome` | Send a welcome email |
+# #endif
+# #if storage
+| POST   | `/api/files/:key`    | Upload an object   |
+| GET    | `/api/files/:key/url`| Signed download URL |
+| DELETE | `/api/files/:key`    | Delete an object   |
+# #endif
+# #if payments
+| POST   | `/api/payments/checkout`  | One-time Stripe checkout |
+| POST   | `/api/payments/subscribe` | Subscription checkout |
+| POST   | `/api/payments/portal`    | Billing portal |
+| POST   | `/api/webhooks/stripe`    | Stripe webhook (verified) |
+# #endif
 
 ```bash
 curl localhost:4000/api/cars
@@ -61,7 +75,60 @@ npm run db:migrate && npm run db:seed
 ## Authentication
 
 Email + password auth via better-auth ([`@softeneers/auth`](https://www.npmjs.com/package/@softeneers/auth)),
-mounted at `/api/auth/*`. Set a strong `AUTH_SECRET` in `.env` before deploying.
+mounted at `/api/auth/*` (`sign-up/email`, `sign-in/email`, `get-session`, …).
+Set a strong `AUTH_SECRET` in `.env` before deploying.
+# #endif
+# #if email
+
+## Email
+
+Transactional email via Resend ([`@softeneers/email`](https://www.npmjs.com/package/@softeneers/email)).
+Set `RESEND_API_KEY` (and `EMAIL_FROM`) in `.env`, then:
+
+```bash
+curl -X POST localhost:4000/api/email/welcome -H 'content-type: application/json' \
+  -d '{"to":"you@example.com","name":"Ada"}'
+```
+# #endif
+# #if storage
+
+## Storage
+
+S3-compatible uploads ([`@softeneers/storage`](https://www.npmjs.com/package/@softeneers/storage))
+— works with AWS S3, Cloudflare R2, and MinIO. Set the `S3_*` keys in `.env`, then:
+
+```bash
+curl -X POST --data-binary @photo.png localhost:4000/api/files/photo.png
+curl localhost:4000/api/files/photo.png/url   # → a signed download URL
+```
+# #endif
+# #if payments
+
+## Payments (Stripe)
+
+Stripe checkout, subscriptions, the billing portal, and a verified webhook
+([`@softeneers/payments`](https://www.npmjs.com/package/@softeneers/payments)) —
+**all pre-wired**. The only thing you do is paste your keys into `.env`:
+
+```
+STRIPE_SECRET_KEY=sk_test_…
+STRIPE_WEBHOOK_SECRET=whsec_…
+STRIPE_PRICE_ID=price_…                # one-time price
+STRIPE_SUBSCRIPTION_PRICE_ID=price_…   # recurring price
+```
+
+Get test keys at <https://dashboard.stripe.com/test/apikeys> and create two
+Prices. Locally, forward webhooks with the Stripe CLI (this also prints the
+`whsec_…` secret):
+
+```bash
+stripe listen --forward-to localhost:4000/api/webhooks/stripe
+```
+
+Then `POST /api/payments/checkout` (or `/subscribe`) returns a Stripe URL to
+redirect the customer to. The webhook handles `checkout.session.completed` and
+the `customer.subscription.*` events — add your fulfilment logic in
+`src/payments/webhook.ts`.
 # #endif
 
 ## Getting started
