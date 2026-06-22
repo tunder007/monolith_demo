@@ -31,8 +31,15 @@ pnpm-lock.yaml
 # Benchmark machine outputs (regenerated; PROJECT-BENCHMARK.md is the kept summary)
 benchmark.html
 benchmark.json
+benchmark.md
+BENCHMARK.md
 project-benchmark.html
 project-benchmark.json
+
+# Tool-generated artifacts we don't track (regenerated on demand)
+.cursor
+.workspace-optimizer
+apps/MANIFEST.json
 
 # Logs
 *.log

@@ -11,6 +11,9 @@ node_modules
 templates
 apps/cli/templates
 
+# Standalone Next app with its own tooling
+apps/landing
+
 # Lockfiles
 package-lock.json
 pnpm-lock.yaml

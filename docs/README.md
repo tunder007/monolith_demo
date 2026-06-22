@@ -18,7 +18,8 @@ Related, at the repo root: [`../README.md`](../README.md) (overview),
 [`../TODO.md`](../TODO.md) (original intent), [`../PROJECT-BENCHMARK.md`](../PROJECT-BENCHMARK.md)
 (latest maturity benchmark), [`../CLAUDE.md`](../CLAUDE.md) (agent entry contract).
 A browsable HTML version of these docs is generated into `apps/docs/dist/` by
-`npm run build`.
+`npm run build`. The human-facing marketing site is live at
+<https://softeneers-landing.vercel.app> (source in `apps/landing`).
 
 ## Conventions
 
