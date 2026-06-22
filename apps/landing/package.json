@@ -4,12 +4,16 @@
   "private": true,
   "description": "Marketing/landing page for Softeneers Framework (deployed to Vercel).",
   "scripts": {
+    "collect-docs": "node scripts/collect-docs.mjs",
+    "predev": "node scripts/collect-docs.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/collect-docs.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "marked": "^12.0.0",
     "next": "16.2.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
